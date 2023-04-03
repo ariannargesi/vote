@@ -16,8 +16,6 @@ const colorsOutlined: typeof colors = {
 
 type Color = keyof typeof colors 
 
-type ButtonProps = HTMLProps<HTMLButtonElement>
-
 interface Props extends HTMLProps<HTMLButtonElement> {
     color?: Color,
     outline?: boolean,

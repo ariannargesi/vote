@@ -1,7 +1,7 @@
 
 import Button from "@/component/Button"
 import Input, { Label, Textarea, className as inputClassName, Switch } from "@/component/form"
-import { Lock, Map, Plus, Trash2 } from "react-feather"
+import { Lock, Map, Plus, Trash2 } from "react-bootstrap-icons"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { useSession } from 'next-auth/react'
 import { GetServerSidePropsContext } from "next"
