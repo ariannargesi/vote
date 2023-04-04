@@ -6,3 +6,6 @@ body, html, #__next {
     height: 100%;
 }
 
+body {
+    font-size: 15px;
+}

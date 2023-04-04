@@ -1,8 +1,8 @@
 import cn from 'classnames'
 import { HTMLProps } from 'react'
-
+import { Color } from './Button'
 // variants
-const colors = {
+const colors: Color = {
     'success': 'bg-green-50 text-green-500',
     'info': 'bg-blue-50 text-blue-500',
     'danger': 'bg-red-50 text-red-500',
@@ -11,10 +11,9 @@ const colors = {
     'default': 'bg-gray-50 text-black'
 }
 
-type Color = keyof typeof colors 
 
 interface Props extends HTMLProps<HTMLSpanElement> {
-    color?: Color,
+    color?: keyof Color,
 }
 
 export default function Button (props: Props) {

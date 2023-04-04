@@ -1,38 +1,35 @@
-import useToggle from '@/hooks/useToggle'
 import cn from 'classnames'
-import { forwardRef, useEffect } from 'react'
-import { ToggleLeft } from 'react-feather'
+import { HTMLProps, MouseEventHandler, forwardRef, useEffect } from 'react'
 
 export const className = 'bg-gray-100 w-full p-1.5 border border-gray-200 shadow-sm rounded-md mb-0.5'
 
+type InputProps = Omit<HTMLProps<HTMLInputElement>, 'className'>
+type TextAreaProps = Omit<HTMLProps<HTMLTextAreaElement>, 'className'>
+interface LabelProps extends Omit<HTMLProps<HTMLLabelElement>, 'className'> {
+    sm?: boolean 
+}
 
-
-export default forwardRef((props, ref) => {
-    return (
-        <input {...props} className={className} ref={ref} />
-    )
+export default forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+    return <input {...props} className={className} ref={ref} />
 })
 
-export const Textarea = forwardRef((props, ref) => {
-    return (
-        <textarea {...props} className={cn(className, 'h-24')} ref={ref} />
-    )
-})
+export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => (
+    <textarea {...props} className={cn(className, 'h-18')} ref={ref} />
+))
 
-export function Label(props) {
+export function Label(props: LabelProps) {
 
     let className = 'block mb-1'
     if (!props.sm)
         className = cn(className, 'text-lg')
 
     return (
-        <label {...props} className={className}>
+        <label className={className} {...props}/>
 
-        </label>
     )
 }
 
-export function Switch(props) {
+export function Switch(props: { value: boolean; onChange: MouseEventHandler<HTMLDivElement> }) {
 
     return (
         <div 
@@ -46,3 +43,4 @@ export function Switch(props) {
         </div>
     )
 }
+

@@ -5,28 +5,30 @@ import { Hstack, Vstack } from "@/component/Common";
 import VoteMeta from "@/component/VoteMeta";
 import Paper from "@/component/Paper";
 import Avatar from "@/component/Avatar";
+import CommentSection from "@/component/CommentSection";
+import { Textarea } from "@/component/form";
+import NewComment from "@/component/CommentSection/NewComment";
 
-export default function Vote(props) {
+export default function Vote() {
     return (
-        <main className="max-w-3xl mx-auto">
-            <Vstack gap="md">
-            <div>
-                <TitleLarge content={mock.vote.title} />    
-                <div className="flex justify-between gap-x-4">
-                    <Paraphgraph content={mock.vote.caption} />
-                    <Points />
-                </div>
-            </div>
-            <VoteMeta data={mock.vote.meta} />
-            <Paper options={mock.vote.options} />
-            <Hstack>
-                <Avatar src={mock.vote.meta.avatar} />
-                <Vstack>
-                    <span>{mock.vote.meta.from}</span>
-                    <span className="text-sm text-gray-500">ایجاد شده در:{mock.vote.meta.createdAt.toLocaleDateString()}</span>
+        <main className="max-w-3xl mx-auto flex flex-col h-full">
+            <div className="overflow-y-auto">
+                <Vstack gap="md">
+                    <div>
+                        <TitleLarge content={mock.vote.title} />
+                        <div className="flex justify-between gap-x-4">
+                            <Paraphgraph content={mock.vote.caption} />
+                            <Points />
+                        </div>
+                    </div>
+                    <VoteMeta data={mock.vote.meta} />
+                    <Paper options={mock.vote.options} />
+                    <CommentSection />
                 </Vstack>
-            </Hstack>
-            </Vstack>
+            </div>
+            <footer className="pt-2">
+                <NewComment/>
+            </footer>
         </main>
     )
 }

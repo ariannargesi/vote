@@ -13,6 +13,7 @@
     "@types/node": "18.15.10",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
+    "autosize": "^6.0.1",
     "classnames": "^2.3.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
@@ -24,6 +25,7 @@
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.8",
+    "react-textarea-autosize": "^8.4.1",
     "typescript": "5.0.2"
   },
   "devDependencies": {

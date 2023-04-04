@@ -59,7 +59,7 @@ export default function NewVote() {
             <div>
                 {/* TITLE */}
                 <Label>عنوان رای‌گیری</Label>
-                <Input {...register('title', {
+                <Input  {...register('title', {
                     required: true,
                     minLength: {
                         value: 16,

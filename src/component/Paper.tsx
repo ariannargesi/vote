@@ -27,7 +27,7 @@ export default function Paper(props) {
             <ul className="flex flex-col space-y-1">
                 {loading && 'loading'}
                 {options.map(currentItem => (
-                    <li key={currentItem.id} className="bg-gray-100 px-4 py-2 rounded-md relative" onClick={handleClick}>
+                    <li key={currentItem.id} className="bg-gray-100 px-4 py-2 rounded-md relative text-sm" onClick={handleClick}>
                         <div className={cn('h-full w-full absolute top-0 right-0 bg-black rounded-md duration-500 text-white')} style={{width: currentItem.result>= 0 ? currentItem.result+'%' : 0}}/>
                         <span className="absolute left-2 invert mix-blend-difference">{currentItem.result}%</span>
                         <span className="invert mix-blend-difference">{currentItem.title}</span>

@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { HTMLProps } from 'react'
+import { Circle } from 'react-bootstrap-icons'
 
 // variants
 const sizes = {
@@ -12,14 +13,22 @@ type Size = keyof typeof sizes
 
 interface Props extends HTMLProps<HTMLImageElement> {
     size?: Size,
-    src?: string
+    circle?: boolean 
 }
 
 export default function Avatar (props: Props) {
 
-    let className = 'shadow-md rounded-md'
+    let className = 'shadow-md'
 
     className = cn(className, sizes[props.size || 'sm'])
+    className = cn(className, 
+        {
+            'rounded-md': !props.circle, 
+        },
+        {
+            'rounded-full': props.circle 
+        }
+        )
   
     return (
         <img className={className} {...props} ></img>
