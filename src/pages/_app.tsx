@@ -3,6 +3,8 @@ import type { AppProps } from 'next/app'
 import localFont from 'next/font/local'
 import cn from 'classnames'
 import { SessionProvider } from 'next-auth/react'
+import Link from 'next/link'
+import Button from '@/component/Button'
 const iranYekan = localFont({
   src: [
     {
@@ -21,7 +23,10 @@ const iranYekan = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
-      <div style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'px-4 h-full')}><Component {...pageProps} /></div>
+      <div style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full')}>
+        ‌
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   )
 }

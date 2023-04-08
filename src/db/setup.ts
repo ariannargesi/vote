@@ -14,6 +14,11 @@ let clientPromise: Promise<MongoClient>
 client = new MongoClient(uri, options)
 clientPromise = client.connect()
 
+// collections 
+const db = client.db('my-app')
+
+export const users = db.collection('users')
+
 clientPromise.then(() => console.log('connected'))
 .catch(err => console.log('err')
 )

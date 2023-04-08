@@ -25,6 +25,8 @@ export type Color = typeof colors
 interface Props extends HTMLProps<HTMLButtonElement> {
     color?: keyof Color,
     outline?: boolean,
+    extendClass?: string
+    full?: boolean 
 }
 
 
@@ -32,9 +34,15 @@ export default function Button (props: Props) {
 
     let className = 'py-1.5 px-4 rounded-md flex gap-2 items-center justify-center'
 
+    if(props.extendClass)
+        className = cn(className, props.extendClass)
+    if(props.full)
+        className = cn(className, 'w-full')
+    if(props.disabled)
+        className = cn(className, 'opacity-50')  
 
     if(props.outline)
-        className = cn(className, colorsOutlined[props.color || 'default'])    
+        className = cn(className, colorsOutlined[props.color || 'default'])  
     else 
     className = cn(className, colors[props.color || 'default'])
   

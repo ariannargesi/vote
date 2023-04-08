@@ -19,10 +19,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
 
 export function Label(props: LabelProps) {
 
-    let className = 'block mb-1'
-    if (!props.sm)
-        className = cn(className, 'text-lg')
-
+    let className = 'block mb-1 mt-3'
+    
     return (
         <label className={className} {...props}/>
 

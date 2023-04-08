@@ -4,9 +4,6 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
 const authOption = NextAuth({
-    session: {
-        strategy: 'jwt',
-    },
     adapter: MongoDBAdapter(clientPromise),
     providers: [
         EmailProvider({
@@ -20,14 +17,7 @@ const authOption = NextAuth({
             },
             from: process.env.EMAIL_FROM
         }),
-    ],
-    callbacks: {
-        signIn (data){
-            if(data.email?.verificationRequest)
-                return true 
-            return '/new-vote'
-        }
-    }
+    ]
 })
 
 export default authOption
