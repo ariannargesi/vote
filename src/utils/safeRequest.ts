@@ -38,9 +38,9 @@ export function safeRequest(req: NextApiRequest, res: NextApiResponse, options: 
         const rules = options.body[key]
         if (typeof value != rules.type)
             errors.push(`Types are not match. expected ${rules.type}, But got ${typeof value} for ${key}`)
-        if (value.length < rules.minLength)
+        if (rules.minLength != undefined && value.length < rules.minLength)
             errors.push(`minLength error. expected ${rules.minLength}, But got ${value.length} for ${key}`)
-        else if (value.length > rules.maxLength)
+        else if (rules.maxLength != undefined && value.length > rules.maxLength)
             errors.push(`maxLength error. expected ${rules.maxLength}, But got ${value.length} for ${key}`)
 
     })
