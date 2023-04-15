@@ -23,7 +23,7 @@ const iranYekan = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
-      <div style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full')}>
+      <div style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full p-3')}>
         ‌
         <Component {...pageProps} />
       </div>

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
+// TODO rename it to SafeRequestOption
 export type SafeRequestParams = {
     acceptedMethods: string | string[]
     body?: any
@@ -18,7 +19,6 @@ export function safeRequest(req: NextApiRequest, res: NextApiResponse, options: 
                 res.send('invalid request type') // invalid request type 
 
     // check the body of request
-
     const expectedKeys = Object.keys(options.body)
     const givenKeys = Object.keys(req.body)
 
@@ -42,7 +42,6 @@ export function safeRequest(req: NextApiRequest, res: NextApiResponse, options: 
             errors.push(`minLength error. expected ${rules.minLength}, But got ${value.length} for ${key}`)
         else if (rules.maxLength != undefined && value.length > rules.maxLength)
             errors.push(`maxLength error. expected ${rules.maxLength}, But got ${value.length} for ${key}`)
-
     })
 
     if (errors.length > 0)

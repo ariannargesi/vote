@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 import { GetServerSidePropsContext } from "next"
 import { getServerSession, unstable_getServerSession } from "next-auth"
 import authOption from "./api/auth/[...nextauth]"
+import axios from "axios"
 const inputErrorClassName = 'block text-sm text-red-500'
 
 function numToFa(index: number) {
@@ -39,7 +40,7 @@ export default function NewVote() {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
-            options: [{ value: '' }, { value: '' }],
+            options: ['', ''],
             title: '',
         }
     })
@@ -50,11 +51,15 @@ export default function NewVote() {
     });
 
     function addOption() {
-        append({ value: '' })
+        append('')
+    }
+
+    function submitHandler (data) {
+        axios.post('api/new-vote', data)
     }
 
     return (
-        <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(data => console.log(data))}>
+        <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(submitHandler)}>
             {JSON.stringify(session)}
             <div>
                 {/* TITLE */}
@@ -83,7 +88,7 @@ export default function NewVote() {
                                         <button type="button" onClick={() => remove(index)}> <Trash2 size={20} color='gray' /></button>
                                     }
                                 </div>
-                                <Input {...register(`option-${1 + index}`, {
+                                <Input {...register(`options.${index}`, {
                                     required: 'این یکی رو یادت رفت!',
                                     maxLength: {
                                         value: 128,
@@ -103,7 +108,7 @@ export default function NewVote() {
                 <Label> توضیحات <span className="text-sm">(اختیاری)</span></Label>
                 <Textarea {...register('...caption', {
                     required: false, maxLength: {
-                        value: 10,
+                        value: 1024,
                         message: 'توضیحات باید کمتر از 1025 کاراکتر باشه!'
                     }
                 })} />

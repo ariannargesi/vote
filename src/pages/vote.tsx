@@ -1,6 +1,6 @@
 import { Paraphgraph, TitleLarge } from "@/component/Typography";
 import mock from "../mock";
-import Points from "@/component/Points";
+import Points from "@/component/Point/Points";
 import { Hstack, Vstack } from "@/component/Common";
 import VoteMeta from "@/component/VoteMeta";
 import Paper from "@/component/Paper";

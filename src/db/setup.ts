@@ -18,6 +18,7 @@ clientPromise = client.connect()
 const db = client.db('my-app')
 
 export const users = db.collection('users')
+export const polls = db.collection('polls')
 
 clientPromise.then(() => console.log('connected'))
 .catch(err => console.log('err')

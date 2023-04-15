@@ -4,6 +4,7 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
 const authOption = NextAuth({
+    session: {strategy: "jwt"},
     adapter: MongoDBAdapter(clientPromise),
     providers: [
         EmailProvider({
@@ -14,7 +15,7 @@ const authOption = NextAuth({
                     user: process.env.EMAIL_SERVER_USER,
                     pass: process.env.EMAIL_SERVER_PASSWORD
                 }
-            },
+                },
             from: process.env.EMAIL_FROM
         }),
     ]
