@@ -9,26 +9,28 @@ const fontSize = 20
 
 interface Props {
     ananymous: boolean,
-    creatorID: ObjectId,
-    
+    creatorId: string,
+    location: string,
+    createdAt: Date
 }
 
-export default function VoteMetaData(props: { data: any }) {
+export default function Meta(props: Props) {
     return (
-            <Hstack>
-                {props.data.anan && (
-                    <Badge color="info">
-                        <Incognito size={fontSize}
-                        />
-                        <span className="text-sm">امکان رای‌گیری ناشناس</span>
-                    </Badge>
-                )}
-                {props.data.location && (
-                    <Badge color={'success'}>
-                        <GeoAlt />
-                        <span className="text-sm">تهران</span>
-                    </Badge>
-                )}
-            </Hstack>
+        <Hstack>
+            {props.ananymous && (
+                <Badge color="info">
+                    <Incognito size={fontSize}
+                    />
+                    <span className="text-sm">امکان رای‌گیری ناشناس</span>
+                </Badge>
+            )}
+            {props.location && (
+                <Badge color={'success'}>
+                    <GeoAlt />
+                    <span className="text-sm">تهران</span>
+                </Badge>
+            )}
+
+        </Hstack>
     )
 }

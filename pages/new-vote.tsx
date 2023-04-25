@@ -60,7 +60,7 @@ export default function NewVote() {
     }
 
     return (
-        <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(submitHandler)}>
+        <form className="flex flex-col justify-between h-full overflow-y-scroll" onSubmit={handleSubmit(submitHandler)}>
             {JSON.stringify(session)}
             <div>
                 {/* TITLE */}

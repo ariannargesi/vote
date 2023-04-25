@@ -5,6 +5,7 @@ import cn from 'classnames'
 import { SessionProvider } from 'next-auth/react'
 import Link from 'next/link'
 import Button from '@/features/Button'
+import Footer from '@/components/footer'
 const iranYekan = localFont({
   src: [
     {
@@ -23,15 +24,13 @@ const iranYekan = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
-      <div style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full p-3')}>
+      <main style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full flex flex-col max-w-3xl mx-auto')}>
         ‌
-        <Component {...pageProps} />
-        <div className='mt-32 '>
-          <Link href={'/new-vote'}>رای‌گیری جدید</Link>
-          <Link href={'/'}>صفحه اصلی</Link>
-
+        <div className='h-full overflow-y-scroll'>
+          <Component {...pageProps} />
         </div>
-      </div>
+        <Footer/>
+      </main>
       
     </SessionProvider>
   )

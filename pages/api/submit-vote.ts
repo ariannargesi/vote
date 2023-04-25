@@ -75,11 +75,11 @@ const getPollResult = async (pollId: ObjectId)  => {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const session: Session | null = await getServerSession(req, res, authOption)
     if (!session)
-        return res.status(401).end()
-    const pollId = new ObjectId(req.body.pollId)
+    return res.status(401).end()
     const email = session.user?.email!
-    // TODO read user id from session 
     const userId = (await UserManager.getUserData(email))!._id
+    const pollId = new ObjectId(req.body.pollId)
+    // TODO read user id from session 
     const alreadyVoted = await VoteManager.isAlreadyVoted(userId, pollId)
     if (alreadyVoted)
         res.status(ResponseType.ALREADY_EXIST).end()

@@ -3,6 +3,7 @@ import { Vstack } from "./Common";
 import cn from "classnames";
 import axios from "axios";
 import Spinner from './Spinner'
+import Button from "./Button";
 
 type Result = { value: number }[]
 
@@ -77,6 +78,10 @@ export default function Paper(props: Props) {
 
     return (
         <Vstack>
+            <div className="w-full flex border justify-between">
+                <Button>Click</Button>
+                <Button>Click</Button>
+            </div>
             <div className="flex space-x-4">
                 <span>{getLabel(userVote)}</span>
                 {loading && <Spinner />}

@@ -7,24 +7,42 @@ import { Reply, Share, Trash } from "react-bootstrap-icons"
 import Badge from "../Badge"
 import useToggle from "@/hooks/useToggle"
 import { Textarea } from "../form"
+import { useEffect, useRef, useState } from "react"
+import axios from "axios"
+import { ReponseType } from "@/pages/api/get-comments"
 
-export function Thread(props) {
+export default function CommentsList(props: { pollId: string }) {
+
+    const [list, setList] = useState<[] | null>(null)
+    const [page, setPage] = useState(1)
     const [showReplyInput, toggleReplyInput] = useToggle(false)
+    const hasHasMore = useRef(null)
 
-    function handleReply(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
-        throw new Error("Function not implemented.")
-    }
+    useEffect(() => {
+        const endpoint = "/api/get-comments?page=" + page + '&pollId=' + props.pollId
+        axios.get<ResponseType>(endpoint)
+            .then(response => {
+                setList(response.data.commentsList)
+                console.log(response.data.commentsList)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
 
-    return (
-        <div className="py-4">
-            <Vstack>
+    if(list === null)
+        return null 
+    
+    return list.map(currentItem => {
+        return (
+            <Vstack key={Math.random()}>
                 <Hstack>
                     <Avatar src="https://picsum.photos/48" circle />
                     <span>علی انصاری</span>
                 </Hstack>
                 <div>
                     <div className="flex">
-                        <p className="text-gray-500">{mock.vote.comments[0].content}</p>
+                        <p className="text-gray-500">{currentItem.comment}</p>
                         <PointCounter sm />
                     </div>
                     <span className="text-sm text-gray-400 underline">مشاهده ۴۵ جواب</span>
@@ -42,16 +60,7 @@ export function Thread(props) {
                     </Vstack>
                 )}
             </Vstack>
-            {props.nested < 2 && (<div className="mr-8"><Thread nested={1+props.nested} /></div>)}
-        </div>
-    )
+        )
+    })
 }
 
-
-export default function CommentSection(props) {
-    return (
-        <div className="divide-y divide-slate-200">
-            <Thread nested={0}/>
-        </div>
-    )
-}

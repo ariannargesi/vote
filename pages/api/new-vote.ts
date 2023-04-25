@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 import authOption from './auth/[...nextauth]'
 import UserManager from '@/Managers/user'
+import { toShamsiDate } from '@/utils'
 
 
 
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         ...req.body,
         scores: [],
         votes: [],
-        createdAt: new Date(),
+        createdAt: toShamsiDate(new Date()),
     }
     const result: InsertOneResult = await pollsCollection.insertOne(poll)
     res.json(result)

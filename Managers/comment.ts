@@ -1,19 +1,34 @@
 import { polls } from "@/db/setup";
 import { ObjectId } from "mongodb";
+import { ObjectType } from "typescript";
 
 interface Comment {
-    content: string,
-    userId: ObjectId,
+    comment: string,
+    createdBy: ObjectId,
     pollId: ObjectId
 }
 
 export default class CommentManager {
-    static async addCommnet (input: Comment){
+   
+    static async new (input: Comment){
         // TODO add reply featuer 
         return await polls.updateOne(
             {_id: input.pollId},
-            {$push: {comments: { id: input.userId, content: input.content, date: new Date() }}} 
+            {$push: {comments: { createdBy: input.createdBy, comment: input.comment, date: new Date() }}} 
         )
+    }
+    static async getCommentsWithOffset(offset: number, pollId: ObjectId) {
+        const aggregationResult = await polls.aggregate([
+          {
+            $match: { _id: pollId}
+          },
+          {
+            $project: {
+              comments: { $slice: ["$comments", offset, 10] }
+            }
+          }
+        ]).toArray();
+        return aggregationResult[0].comments  
     }
     static async deleteComment (pollId: ObjectId, commentId: ObjectId){
         return await polls.deleteOne(

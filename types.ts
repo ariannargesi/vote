@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb"
-
+import z from 'zod'
 
 export type Vote = {
-    createdBy: ObjectId, 
-    selectedIndex: numer 
+    createdBy: ObjectId,
+    selectedIndex: number
 }
 export type Score = {
     id: ObjectId,
@@ -27,12 +27,13 @@ export type Poll = {
 
 export enum Operator {
     Plus = 'UP',
-    Minus = 'DOWN' 
+    Minus = 'DOWN'
 }
 
 export enum ResponseType {
     ALREADY_EXIST = 409,
     DONE = 'DONE',
     SAVED = 200,
-    REMOVED = 'REMOVED'
+    REMOVED = 'REMOVED',
+    BAD_REQUEST = 400
 }

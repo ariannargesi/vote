@@ -1,4 +1,3 @@
-import CommentSection from "@/features/CommentSection"
 import NewComment from "@/features/CommentSection/NewComment"
 import { Vstack } from "@/features/Common"
 import Paper from "@/features/Paper"
@@ -9,7 +8,6 @@ import { polls as pollsCollection, users } from "@/db/setup"
 import { useAuth } from "@/hooks/useAuth"
 import { Operator, Poll, Score } from "@/types"
 import { ObjectId } from "mongodb"
-import { useSession } from "next-auth/react"
 import { GetServerSidePropsContext } from "next/types"
 import PollManager from "@/Managers/poll"
 import ScoreManager from "@/Managers/score"
@@ -17,6 +15,7 @@ import UserManager from "@/Managers/user"
 import { getServerSession } from "next-auth"
 import authOption from "../api/auth/[...nextauth]"
 import VoteManager from "@/Managers/vote"
+import CommentSection from "@/features/CommentSection"
 
 function calculateScore(scores: Score[]) {
     let score = 0
@@ -29,61 +28,79 @@ function calculateScore(scores: Score[]) {
 }
 
 type Props = {
-    pollId: string, 
+    pollId: string,
     pollScore: number,
     userScoreDir?: Operator,
-    options: string [],
+    options: string[],
     votesCount: number,
     results?: any
-    userVote?: number 
-    data: string 
+    userVote?: number
+    data: string,
+    anonymous?: boolean,
+    location?: string
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    
+
     const session = await getServerSession(context.req, context.res, authOption)
     if (!session)
         return {
             redirect: {
-                destination: '/login',
+                destination: '/api/auth/signin',
                 permenant: true
             }
         }
     let userId = (await UserManager.getUserData(session.user.email))?._id!
-    const id = context.query.id as  string 
+    const id = context.query.id as string
     const poll = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
-    const { options, scores, _id} = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
+    const { options, scores, _id } = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
     const pollScore = calculateScore(scores)
     const userScoreDir = await ScoreManager.getUserScoreDir(new ObjectId(id), userId) as Operator
-        const votesCount = await VoteManager.getVotesCount(_id)
-    
+    const votesCount = await VoteManager.getVotesCount(_id)
+
     const props: Props = {
-        options, 
-        votesCount: votesCount, 
+        options,
+        votesCount: votesCount,
         data: JSON.stringify(poll),
         pollId: _id.toString(),
         pollScore
     }
 
-    if(userScoreDir)
+    if (userScoreDir)
         props.userScoreDir = userScoreDir
 
     const alreadyVoted = (await PollManager.alreadyVoted(poll._id, userId))
-    if(typeof alreadyVoted === 'number'){
+    if (typeof alreadyVoted === 'number') {
         props.results = await VoteManager.getPollResult(_id)
         props.userVote = alreadyVoted
     }
     return {
-        props 
+        props
     }
 }
 
+export function Description(props: { content: string }) {
 
+    if (!props.content)
+        return null
+
+    return (
+        <div>
+            {props.content.split('\n').map(currentItem => (
+                <p>
+                    {currentItem}
+                </p>
+            ))
+            }
+        </div>
+    )
+
+
+}
 
 export default function Page(props: Props) {
 
     useAuth()
-    const session = useSession()
     const poll = JSON.parse(props.data) as Poll
 
     return (
@@ -93,8 +110,8 @@ export default function Page(props: Props) {
                     <Vstack gap="md">
                         <div>
                             <TitleLarge content={poll.title} />
-                            <div className="flex justify-between gap-x-4">
-                                <Paraphgraph content={poll.caption} />
+                            <div className="flex justify-between gap-x-4 mt-1">
+                                <Description content={poll.caption} />
                                 <Points
                                     pollId={props.id}
                                     score={props.pollScore}
@@ -102,27 +119,29 @@ export default function Page(props: Props) {
                                 />
                             </div>
                         </div>
-                        <Paper 
-                            pollId={props.pollId} 
+                        <Paper
+                            pollId={props.pollId}
                             results={props.results}
                             userVote={props.userVote}
-                            options={props.options} 
+                            options={props.options}
                             votesCount={props.votesCount}
-                            
-                        />
-                        {/* <VoteMeta 
-                        ananymouse={poll.ananymouse} 
-                        location={poll.location} 
-                        createdDate={poll.createdAt}  
-                        creatorID={poll.creatorID}
-                    /> */}
 
-                        {/* <CommentSection /> */}
+                        />
+                        <VoteMeta
+                            ananymous={true}
+                            location={'تهران'}
+                            createdAt={new Date()}
+                            creatorId={'adsfadsfs'}
+
+                        />
+                        <CommentSection pollId={props.pollId} />
                     </Vstack>
                 </div>
-                {/* <footer className="pt-2">
-                <NewComment/>
-            </footer>  */}
+                <footer className="pt-2">
+                    <NewComment
+                        pollId={props.pollId}
+                    />
+                </footer>
             </main>
         </div>
     )

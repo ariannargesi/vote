@@ -1,9 +1,7 @@
-import { usePost } from '@/hooks/usePost'
-import { Operator, ResponseType } from '@/types'
-import axios, { Axios } from 'axios'
+import { Operator } from '@/types'
+import axios from 'axios'
 import { TriangleFill } from 'react-bootstrap-icons'
-import { MouseEvent, useState } from 'react'
-import { setMaxIdleHTTPParsers } from 'http'
+import { useState } from 'react'
 
 const endPoint = '/api/submit-score'
 const removeScoreEndPoint = '/api/remove-score'
