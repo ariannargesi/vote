@@ -79,6 +79,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const email = session.user?.email!
     const userId = (await UserManager.getUserData(email))!._id
     const pollId = new ObjectId(req.body.pollId)
+    const pollState = await VoteManager.getState(pollId)
+    const userState = await UserManager.getState(userId)
+
+    if(pollState != userState)
+      return res.status(ResponseType.FORBIDDEN)
+    
     // TODO read user id from session 
     const alreadyVoted = await VoteManager.isAlreadyVoted(userId, pollId)
     if (alreadyVoted)

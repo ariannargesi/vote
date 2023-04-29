@@ -22,7 +22,7 @@ const authOption = NextAuth({
                 },
             from: process.env.EMAIL_FROM
         }),
-    ],
+    ]
 })
 
 export default authOption

@@ -143,9 +143,10 @@ export default function NewVote() {
                     <span className="text-lg font-bold flex gap-2 items-center">محل رای‌گیری <Map size={20} /></span>
                     <p className="text-sm">فقط کاربران استان مورد نظر میتوانند در این رای‌گیری شرکت کنند.</p>
                 </div>
+                {/* TODO لیست شهر ها رو از فایل استاتیکز بخون */}
                 <select className={inputClassName} {...register('city', { required: false })}>
                     <option value="all">مهم نیست</option>
-                    <option value="economi">رشت</option>
+                    <option value="گیلان">گیلان</option>
                     <option value="politic">تهران</option>
                 </select>
             </div>

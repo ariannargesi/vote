@@ -2,6 +2,7 @@ import Button from '@/features/Button'
 import useIsLoggedIn from '@/hooks/useIsLoggedIn'
 import Link from 'next/link'
 import { PlusCircle, House, Person } from 'react-bootstrap-icons'
+
 export default function Footer() {
     const isLoggedIn = useIsLoggedIn()
     return (
@@ -23,7 +24,6 @@ export default function Footer() {
                     <Button color='default' full>ورود</Button>
                 </Link>
             }
-
         </div>
     )
 }
