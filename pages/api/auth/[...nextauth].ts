@@ -1,4 +1,4 @@
-import clientPromise from "@/db/setup";
+import clientPromise from "@/server-logic/db/setup";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { Session } from "next-auth";
 import EmailProvider from "next-auth/providers/email";

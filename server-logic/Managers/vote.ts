@@ -1,4 +1,4 @@
-import { polls } from "@/db/setup";
+import { polls } from "@/server-logic/db/setup";
 import { Poll } from "@/types";
 import { log } from "console";
 import { ObjectId } from "mongodb";

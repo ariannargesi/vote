@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { users } from "@/db/setup"
-import { SafeRequestParams, safeRequest } from '@/utils/safeRequest'
-import checkUsername from '@/utils'
+import { users } from "@/server-logic/db/setup"
+import { SafeRequestParams, safeRequest } from '@/server-logic/utils/safeRequest'
+import checkUsername from '@/server-logic/utils'
 export type CheckUsernameResponseType = {
     isValid: boolean
 }

@@ -1,4 +1,4 @@
-import { polls as pollsCollection } from "@/db/setup"
+import { polls as pollsCollection } from "@/server-logic/db/setup"
 import { GetServerSidePropsContext } from "next"
 import Link from "next/link"
 

@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import z from 'zod'
-import statics from '@/statics'
+import statics from '@/server-logic/statics'
 import axios from 'axios'
 import { error } from 'console'
-import checkUsername, { getUserId } from '@/utils'
-import UserManager from '@/Managers/user'
+import checkUsername, { getUserId } from '@/server-logic/utils'
+import UserManager from '@/server-logic/Managers/user'
 import { getServerSession } from 'next-auth'
 import authOption from './auth/[...nextauth]'
 

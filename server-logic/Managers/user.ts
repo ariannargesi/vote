@@ -1,4 +1,4 @@
-import { users } from "@/db/setup";
+import { users } from "@/server-logic/db/setup";
 import { ObjectId } from "mongodb";
 import { userAgentFromString } from "next/server";
 

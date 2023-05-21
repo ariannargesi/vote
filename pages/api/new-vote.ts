@@ -1,10 +1,10 @@
-import { polls as pollsCollection } from '@/db/setup'
+import { polls as pollsCollection } from '@/server-logic/db/setup'
 import { InsertOneResult } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 import authOption from './auth/[...nextauth]'
-import UserManager from '@/Managers/user'
-import { toShamsiDate } from '@/utils'
+import UserManager from '@/server-logic/Managers/user'
+import { toShamsiDate } from '@/server-logic/utils'
 
 
 

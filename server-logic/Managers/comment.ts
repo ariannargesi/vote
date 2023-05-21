@@ -1,4 +1,4 @@
-import { polls } from "@/db/setup";
+import { polls } from "@/server-logic/db/setup";
 import { ObjectId } from "mongodb";
 import { ObjectType } from "typescript";
 

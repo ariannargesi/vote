@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className='h-full overflow-y-scroll '>
           <Component {...pageProps} />
         </div>
-        <Footer/>
+        
       </main>
       
     </SessionProvider>

@@ -1,5 +1,5 @@
-import UserManager from "@/Managers/user";
-import { users } from "@/db/setup"
+import UserManager from "@/server-logic/Managers/user";
+import { users } from "@/server-logic/db/setup"
 import authOption from "@/pages/api/auth/[...nextauth]";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";

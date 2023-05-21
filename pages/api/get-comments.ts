@@ -1,4 +1,4 @@
-import CommentManager from '@/Managers/comment'
+import CommentManager from '@/server-logic/Managers/comment'
 import { ObjectId } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
