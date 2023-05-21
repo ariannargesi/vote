@@ -8,6 +8,9 @@ interface SessionWithId extends Session {
 }
 
 const authOption = NextAuth({
+    pages: {
+      verifyRequest: '/verify'  
+    },
     session: {strategy: "jwt"},
     adapter: MongoDBAdapter(clientPromise),
     providers: [

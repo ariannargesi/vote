@@ -127,7 +127,6 @@ export default function Paper(props: Props) {
    
     return (
         <Vstack>
-
             <div className="flex space-x-4">
                 {isAllowed.isAllowed === false &&
                     isAllowed.type === ISSUES.NO_STATE &&

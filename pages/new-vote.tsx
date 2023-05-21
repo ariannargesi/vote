@@ -8,6 +8,7 @@ import { GetServerSidePropsContext } from "next"
 import { getServerSession, unstable_getServerSession } from "next-auth"
 import authOption from "./api/auth/[...nextauth]"
 import axios from "axios"
+import React from "react"
 const inputErrorClassName = 'block text-sm text-red-500'
 
 function numToFa(index: number) {
@@ -35,7 +36,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function NewVote() {
-
+    const [type, setType] = React.useState(null)
+    
     const session = useSession()
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({

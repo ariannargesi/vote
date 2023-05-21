@@ -19,13 +19,18 @@ export async function getServerSideProps (context: GetServerSidePropsContext) {
 export default function Home (props) {
 
   const polls = JSON.parse(props.polls)
-  console.log(Object.keys(props))
   return (
     <div>
       {polls.map(currentItem => (
-          <Link href={`/polls/${currentItem._id}`} className="text-blue-400 underline block">
-              {currentItem.title}
+        <div key={currentItem.title} className="bg-gray-100 py-2 my-2 px-4 rounded">
+          <Link  href={`/polls/${currentItem._id}`} className="text-blue-600 block">
+              <p>{currentItem.title}</p>
+              <div className="text-gray-600 text-sm flex gap-x-8">
+                <span>۱۲۰۰ رای</span>
+                <span>۴۷ نظر</span>
+              </div>
           </Link>
+        </div>
       ))
       }
     </div>
