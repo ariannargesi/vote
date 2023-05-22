@@ -1,11 +1,11 @@
-import Button from "@/features/Button";
-import SelectAvatar from "@/features/profile/SelectAvatar";
+import Button from "@/components/Button";
+import SelectAvatar from "@/components/profile/SelectAvatar";
 import axios from "axios";
 import { ReactNode, useState } from "react";
 
 export function Page ({children}: { children: ReactNode}) {
     return (
-        <main className="flex flex-col justify-between h-full">
+        <main className="flex flex-col justify-between border h-full" style={{overflow: 'hidden'}}>
             {children}
         </main>
     )
@@ -13,7 +13,7 @@ export function Page ({children}: { children: ReactNode}) {
 
 export function Header ({children}: { children: ReactNode}) {
     return (
-        <header>
+        <header className="p-3 border-b">
             {children}
         </header>
     )
@@ -21,7 +21,7 @@ export function Header ({children}: { children: ReactNode}) {
 
 export function Footer ({children}: { children: ReactNode}) {
     return (
-        <footer className="pb-1">
+        <footer className="p-2 border-t">
             {children}
         </footer>
     )
@@ -29,7 +29,7 @@ export function Footer ({children}: { children: ReactNode}) {
 
 export function Content ({children}: { children: ReactNode}) {
     return (
-        <div>
+        <div className="h-full px-4" style={{overflow: 'scroll'}}>
             {children}
         </div>
     )
@@ -39,9 +39,12 @@ export default function Cmp () {
     return (
         <Page>
             <Header>header</Header>
-            <Content>Content</Content>
+            <Content>
+                <h1 className="text-3xl">Title</h1>
+                {/* <h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1><h1 className="text-3xl">Title</h1> */}
+            </Content>
             <Footer>
-                <Button>ذخیره</Button>
+                <Button extendClass="w-1/3">ذffخیره</Button>
             </Footer>
         </Page>
     )
