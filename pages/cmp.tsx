@@ -2,10 +2,14 @@ import Button from "@/components/Button";
 import SelectAvatar from "@/components/profile/SelectAvatar";
 import axios from "axios";
 import { ReactNode, useState } from "react";
+import cn from 'classnames'
 
-export function Page ({children}: { children: ReactNode}) {
+export function Page ({children, extraClasses}: { children: ReactNode, extraClasses?: string}) {
+    let className = 'flex flex-col justify-between h-full'
+    if(extraClasses)
+        className = cn(className, extraClasses)
     return (
-        <main className="flex flex-col justify-between border h-full" style={{overflow: 'hidden'}}>
+        <main className={className}>
             {children}
         </main>
     )
