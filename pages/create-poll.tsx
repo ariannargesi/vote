@@ -14,6 +14,7 @@ import { Content, Footer, Header, Page } from "./cmp"
 import httpServer from "@/axios"
 import FullScreen from "@/components/full-screen"
 const inputErrorClassName = 'block text-sm text-red-500'
+import { useNavigate } from 'react-router';
 
 interface FormType {
     title: string,
@@ -73,8 +74,18 @@ export default function NewVote() {
     
   
 
-    function submitHandler(data: any) {
-        console.log(data)
+   async function submitHandler(value) {
+        value.location = 'تهران'
+        value.category = "اقتصاد"
+        setLoading(true)
+        const {data} =await httpServer.post('/poll',value)
+        if(data.status === 'success'){
+            let navigate = useNavigate();
+            navigate('')
+        }else{
+            console.log('error has been occured!')
+            // do we have ' data.catch(error){} ' ?
+        }
     }
     return (
         <Page extraClasses="max-w-3xl mx-auto">
