@@ -10,8 +10,9 @@ const fontSize = 20
 interface Props {
     ananymous: boolean,
     creatorId: string,
-    location: string,
-    createdAt: Date
+    state: string,
+    createdAt: Date,
+    
 }
 
 export default function Meta(props: Props) {
@@ -24,10 +25,10 @@ export default function Meta(props: Props) {
                     <span className="text-sm">امکان رای‌گیری ناشناس</span>
                 </Badge>
             )}
-            {props.location && (
+            {props.state && (
                 <Badge color={'success'}>
                     <GeoAlt />
-                    <span className="text-sm">تهران</span>
+                    <span className="text-sm">{props.state}</span>
                 </Badge>
             )}
 

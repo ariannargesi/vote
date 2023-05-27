@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { polls } from "@/db/setup";
+import { polls } from "@/server-logic/db/setup";
 import { Operator, Poll,} from "@/types";
 
 export default class ScoreManager {

@@ -5,9 +5,9 @@ import { Hstack, Vstack } from "@/features/Common";
 import VoteMeta from "@/features/VoteMeta";
 import Paper from "@/features/Paper";
 import Avatar from "@/features/Avatar";
-import CommentSection from "@/features/CommentSection";
+import CommentSection from "@/components/CommentSection";
 import { Textarea } from "@/features/form";
-import NewComment from "@/features/CommentSection/NewComment";
+import NewComment from "@/components/CommentSection/NewComment";
 
 export default function Vote() {
     return (

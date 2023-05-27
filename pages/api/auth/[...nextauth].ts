@@ -1,4 +1,4 @@
-import clientPromise from "@/db/setup";
+import clientPromise from "@/server-logic/db/setup";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { Session } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
@@ -8,6 +8,9 @@ interface SessionWithId extends Session {
 }
 
 const authOption = NextAuth({
+    pages: {
+      verifyRequest: '/verify'  
+    },
     session: {strategy: "jwt"},
     adapter: MongoDBAdapter(clientPromise),
     providers: [
@@ -22,7 +25,7 @@ const authOption = NextAuth({
                 },
             from: process.env.EMAIL_FROM
         }),
-    ],
+    ]
 })
 
 export default authOption

@@ -1,5 +1,5 @@
-import checkUsername from '@/utils'
-import { SafeRequestParams, safeRequest } from '@/utils/safeRequest'
+import checkUsername from '@/server-logic/utils'
+import { SafeRequestParams, safeRequest } from '@/server-logic/utils/safeRequest'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession, unstable_getServerSession } from 'next-auth'

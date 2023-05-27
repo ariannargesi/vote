@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 import authOption from './auth/[...nextauth]'
-import UserManager from '@/Managers/user'
-import { polls } from '@/db/setup'
+import UserManager from '@/server-logic/Managers/user'
+import { polls } from '@/server-logic/db/setup'
 import { ObjectId } from 'mongodb'
-import ScoreManager from '@/Managers/score'
+import ScoreManager from '@/server-logic/Managers/score'
 import { ResponseType } from '@/types'
 
 // api/remove-score

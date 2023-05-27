@@ -1,21 +1,21 @@
-import NewComment from "@/features/CommentSection/NewComment"
+import NewComment from "@/components/CommentSection/NewComment"
 import { Vstack } from "@/features/Common"
 import Paper from "@/features/Paper"
 import Points from "@/features/Score"
 import { TitleLarge, Paraphgraph } from "@/features/Typography"
 import VoteMeta from "@/features/VoteMeta"
-import { polls as pollsCollection, users } from "@/db/setup"
+import { polls as pollsCollection, users } from "@/server-logic/db/setup"
 import { useAuth } from "@/hooks/useAuth"
 import { Operator, Poll, Score } from "@/types"
 import { ObjectId } from "mongodb"
 import { GetServerSidePropsContext } from "next/types"
-import PollManager from "@/Managers/poll"
-import ScoreManager from "@/Managers/score"
-import UserManager from "@/Managers/user"
+import PollManager from "@/server-logic/Managers/poll"
+import ScoreManager from "@/server-logic/Managers/score"
+import UserManager from "@/server-logic/Managers/user"
 import { getServerSession } from "next-auth"
 import authOption from "../api/auth/[...nextauth]"
-import VoteManager from "@/Managers/vote"
-import CommentSection from "@/features/CommentSection"
+import VoteManager from "@/server-logic/Managers/vote"
+import CommentSection from "@/components/CommentSection"
 
 function calculateScore(scores: Score[]) {
     let score = 0
@@ -37,11 +37,12 @@ type Props = {
     userVote?: number
     data: string,
     anonymous?: boolean,
-    location?: string
+    location?: string,
+    state?: string,
+    userState: string | null 
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-
     const session = await getServerSession(context.req, context.res, authOption)
     if (!session)
         return {
@@ -53,17 +54,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let userId = (await UserManager.getUserData(session.user.email))?._id!
     const id = context.query.id as string
     const poll = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
-    const { options, scores, _id } = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
+    const { options, scores, _id, state } = await pollsCollection.findOne({ _id: new ObjectId(id) }) as Poll
     const pollScore = calculateScore(scores)
     const userScoreDir = await ScoreManager.getUserScoreDir(new ObjectId(id), userId) as Operator
     const votesCount = await VoteManager.getVotesCount(_id)
-
+    const userState = await UserManager.getState(userId) 
+    console.log('serverProps: ')
+    console.log(userState
+        )
     const props: Props = {
         options,
         votesCount: votesCount,
         data: JSON.stringify(poll),
         pollId: _id.toString(),
-        pollScore
+        pollScore,
+        state,
+        userState: userState || null 
     }
 
     if (userScoreDir)
@@ -99,10 +105,10 @@ export function Description(props: { content: string }) {
 }
 
 export default function Page(props: Props) {
-
+    
     useAuth()
     const poll = JSON.parse(props.data) as Poll
-
+    
     return (
         <div>
             <main className="max-w-3xl mx-auto flex flex-col h-full">
@@ -123,13 +129,15 @@ export default function Page(props: Props) {
                             pollId={props.pollId}
                             results={props.results}
                             userVote={props.userVote}
+                            userState={props.userState}
                             options={props.options}
+                            pollState={props.state ? props.state : null}
                             votesCount={props.votesCount}
 
                         />
                         <VoteMeta
                             ananymous={true}
-                            location={'تهران'}
+                            state={props.state}
                             createdAt={new Date()}
                             creatorId={'adsfadsfs'}
 

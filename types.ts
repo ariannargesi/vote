@@ -21,7 +21,8 @@ export type Poll = {
     creatorID: ObjectId,
     options: string[],
     scores: Score[],
-    votes: Vote[]
+    votes: Vote[],
+    state?: string 
 }
 
 
@@ -34,6 +35,7 @@ export enum ResponseType {
     ALREADY_EXIST = 409,
     DONE = 'DONE',
     SAVED = 200,
+    FORBIDDEN = 403, 
     REMOVED = 'REMOVED',
     BAD_REQUEST = 400
 }

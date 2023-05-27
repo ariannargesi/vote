@@ -1,4 +1,4 @@
-import { polls } from "@/db/setup";
+import { polls } from "@/server-logic/db/setup";
 import { Poll } from "@/types";
 import { log } from "console";
 import { ObjectId } from "mongodb";
@@ -99,6 +99,14 @@ export default class VoteManager {
             }
         ])
         return (await aggregationResult.toArray()).at(0).count as number 
+    }
+    static async getState(pollId: ObjectId): Promise<string | null> {
+        const result = 
+            await polls.findOne(
+                {_id: pollId},
+                {projection: {state: 1}}
+            ) 
+        return result.state 
     }
 }
 
