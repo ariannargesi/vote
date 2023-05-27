@@ -7,7 +7,7 @@ import cn from 'classnames'
 type Props = { children: ReactNode, extraClasses?: string }
 
 export function Page ({children, extraClasses}: Props) {
-    let className = 'flex flex-col justify-between h-full'
+    let className = 'flex flex-col justify-between h-full max-w-3xl mx-auto'
     if(extraClasses)
         className = cn(className, extraClasses)
     return (
@@ -38,7 +38,7 @@ export function Footer ({children}: Props) {
 
 export function Content ({children}: Props) {
     return (
-        <div className="h-full px-4" style={{overflow: 'scroll'}}>
+        <div className="h-full p-4" style={{overflow: 'scroll'}}>
             {children}
         </div>
     )
