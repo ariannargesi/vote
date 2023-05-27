@@ -10,6 +10,9 @@ import Footer from '@/components/footer'
 import { useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
+import { House, Person, Plus, PlusCircle } from 'react-bootstrap-icons'
+import { useRouter } from 'next/router'
+
 const iranYekan = localFont({
   src: [
     {
@@ -26,12 +29,29 @@ const iranYekan = localFont({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
-    
+  const router = useRouter()
+  
   return (
     <SessionProvider session={pageProps.session}>
       <main style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full')}>
-        <div className='h-full'>
-          <Component {...pageProps} />
+        <div className='h-full flex flex-col justify-between'>
+          <div className='content' style={{overflow: 'scroll'}}>
+          <Component {...pageProps} /> 
+          </div>
+          <div className="footer text-3xl flex justify-between border px-4 py-3">
+            <Person 
+              onClick={() => router.push('/profile')}
+              className={router.pathname === '/profile' ? 'text-blue-400' : undefined}
+            />
+            <PlusCircle 
+              onClick={() => router.push('/create-poll')}
+              className={router.pathname === '/create-poll' ? 'text-blue-400' : undefined}
+            />
+            <House 
+              onClick={() => router.push('/')}
+              className={router.pathname === '/' ? 'text-blue-400' : undefined}
+            />
+          </div>
         </div>
         <ToastContainer 
           position='bottom-center'
