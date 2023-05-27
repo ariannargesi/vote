@@ -4,7 +4,9 @@ import axios from "axios";
 import { ReactNode, useState } from "react";
 import cn from 'classnames'
 
-export function Page ({children, extraClasses}: { children: ReactNode, extraClasses?: string}) {
+type Props = { children: ReactNode, extraClasses?: string }
+
+export function Page ({children, extraClasses}: Props) {
     let className = 'flex flex-col justify-between h-full'
     if(extraClasses)
         className = cn(className, extraClasses)
@@ -15,15 +17,18 @@ export function Page ({children, extraClasses}: { children: ReactNode, extraClas
     )
 }
 
-export function Header ({children}: { children: ReactNode}) {
+export function Header ({children, extraClasses}: Props) {
+    let className = "p-3 border-b"
+    if(extraClasses)
+        className = cn(className, extraClasses)
     return (
-        <header className="p-3 border-b">
+        <header className={className}>
             {children}
         </header>
     )
 }
 
-export function Footer ({children}: { children: ReactNode}) {
+export function Footer ({children}: Props) {
     return (
         <footer className="p-2 border-t">
             {children}
@@ -31,7 +36,7 @@ export function Footer ({children}: { children: ReactNode}) {
     )
 }
 
-export function Content ({children}: { children: ReactNode}) {
+export function Content ({children}: Props) {
     return (
         <div className="h-full px-4" style={{overflow: 'scroll'}}>
             {children}

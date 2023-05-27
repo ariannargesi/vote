@@ -8,12 +8,15 @@ import Button from '@/features/Button'
 import Path  from 'next/navigation'
 import Footer from '@/components/footer'
 import { useEffect } from 'react'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
 import { House, Person, Plus, PlusCircle } from 'react-bootstrap-icons'
 import { useRouter } from 'next/router'
+
 const iranYekan = localFont({
   src: [
     {
-      path: '../public//assets/fonts/IRANYekanX-Regular.woff2',
+      path: '../public//assets/fonts/IRANYekanX-Regular.woff2', 
       style: 'normal',
       weight: '400'
     },
@@ -28,8 +31,6 @@ const iranYekan = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   
-
-
   return (
     <SessionProvider session={pageProps.session}>
       <main style={{ direction: 'rtl' }} className={cn(iranYekan.className, 'h-full')}>
@@ -52,7 +53,10 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           </div>
         </div>
-        
+        <ToastContainer 
+          position='bottom-center'
+          rtl
+        />
       </main>
       
     </SessionProvider>

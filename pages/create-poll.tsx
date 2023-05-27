@@ -12,6 +12,7 @@ import Spinner from '@/components/Spinner'
 import React from "react"
 import { Content, Footer, Header, Page } from "./cmp"
 import httpServer from "@/axios"
+import FullScreen from "@/components/full-screen"
 const inputErrorClassName = 'block text-sm text-red-500'
 
 interface FormType {
@@ -77,8 +78,9 @@ export default function NewVote() {
     }
     return (
         <Page extraClasses="max-w-3xl mx-auto">
-            <Header>
+            <Header extraClasses="flex items-center justify-between" >
                 <h1 className="text-xl font-bold">ایجاد رای‌گیری</h1>
+                <FullScreen/>
             </Header>
             <Content>
                     <form className="flex flex-col justify-between h-full overflow-y-scroll">
