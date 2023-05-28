@@ -34,7 +34,7 @@ export default function Profile() {
                                 src={'https://picsum.photos/80'}
                                 width={80} height={80} alt='your pic'
                             />
-                            <div>
+                            <div className='w-full'>
                                 <span className='font-bold text-lg'>الهام رضا ناصری</span>
                                 <br />
                                 <p>سلام خدمت دوستان. آرین حسن‌زاده هستم برنامه نویس و توسعه دهنده نرم‌ٔآفزار. امیدوارم در کنار همدیگه یاد بگیریم تا بتونیم جامعه بهتری بسازیم</p>
