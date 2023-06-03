@@ -3,9 +3,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { Session } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
-interface SessionWithId extends Session {
-    id: string 
-}
+
 
 const authOption = NextAuth({
     pages: {

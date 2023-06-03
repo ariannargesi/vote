@@ -5,8 +5,15 @@ import Image from 'next/image'
 import Button from '@/components/Button'
 import Link from 'next/link'
 import EditProfile from './edit-profile'
+import { useRouter } from 'next/router'
 
 export default function Profile() {
+    const router = useRouter()
+
+    function goToEdit () {
+        router.push('/edit-profile')    
+    }
+
     return (
         <Page>
             <style jsx>{`
@@ -40,7 +47,7 @@ export default function Profile() {
                                 <p>سلام خدمت دوستان. آرین حسن‌زاده هستم برنامه نویس و توسعه دهنده نرم‌ٔآفزار. امیدوارم در کنار همدیگه یاد بگیریم تا بتونیم جامعه بهتری بسازیم</p>
                             </div>
                         </div>
-                        <Button outline full extendClass='mt-4'>ویرایش </Button>
+                        <Button outline full extendClass='mt-4' onClick={goToEdit} >ویرایش </Button>
                     </div>
                     <div className='flex gap-x-3'>
                         <div className='rounded-md p-5 ss'>

@@ -39,3 +39,10 @@ export enum ResponseType {
     REMOVED = 'REMOVED',
     BAD_REQUEST = 400
 }
+
+export type User = {
+    username: string,
+    avatar?: string,
+    location?: string,
+    bio?: string,
+}

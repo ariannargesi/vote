@@ -18,9 +18,9 @@ interface Props extends HTMLProps<HTMLImageElement> {
 
 export default function Avatar (props: Props) {
 
-    let className = 'shadow-md'
+    let className = 'rounded-full'
 
-    className = cn(className, sizes[props.size || 'sm'])
+    className = cn(className, sizes[props.size || 'md'])
     className = cn(className, 
         {
             'rounded-md': !props.circle, 

@@ -1,94 +1,97 @@
-import Button from "@/features/Button"
-import PickUsername from "@/features/profile/SelectValidUsername"
-import axios from "axios"
-import { FormEventHandler, ReactNode, useState } from "react"
-import statics from '@/server-logic/statics'
-import { GetServerSidePropsContext } from "next/types"
-import { Session, getServerSession } from "next-auth"
-import authOption from "./api/auth/[...nextauth]"
-import UserManager from "@/server-logic/Managers/user"
-import { getUserId } from "@/server-logic/utils"
-import Avatar from "@/features/Avatar"
-import SelectAvatar from "@/features/profile/SelectAvatar"
-import Header, { HeaderTitle } from "@/components/Header"
-import ProfilePic from "@/components/ProfilePic"
+import FullScreen from '@/components/full-screen'
+import { Header, Content, Page } from '../pages/cmp'
+import Image from 'next/image'
+import { Input, Label, Textarea } from '@/components/form'
+import SelectUsername from '@/components/profile/SelectValidUsername'
+import Avatar from '@/components/Avatar'
+import Button, { IconButton } from '@/components/Button'
+import { PenFill } from 'react-bootstrap-icons'
+import { ChangeEvent, useRef, MouseEvent, useState } from 'react'
+import httpServer from '@/axios'
+import { toast } from 'react-toastify'
+import Spinner from '@/components/Spinner'
+import { AppContext } from 'next/app'
+import { Session, getServerSession, } from 'next-auth'
+import authOption from './api/auth/[...nextauth]'
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
+import { users } from '@/server-logic/db/setup'
+import { User } from '@/types'
+import { getSession, useSession } from 'next-auth/react'
+import Cropper, { ReactCropperElement } from 'react-cropper'
+import 'cropperjs/dist/cropper.css'
+import { setSourceMapRange } from 'typescript'
+import { ServerHeartbeatFailedEvent } from 'mongodb'
+import axios from 'axios'
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    // const session: Session | null = await getServerSession(context.req, context.res, authOption)
-    // const userData = await UserManager.getUserData(session!.user?.email!)
+async function getUser(context: GetServerSidePropsContext): Promise<User> {
+    const session: Session = (await getServerSession(context.req, context.res, authOption))!
+    console.log('session')
+    console.log(session)
+    // const user = await users.findOne<User>({ email: session.user.email }) as User
+    // return user
+    return { username: 'ali', bio: 'fasdfds' }
+}
+
+interface Props {
+    avatar?: string,
+    username: string,
+    bio?: string,
+    location?: string
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+    const { username, bio, avatar, location } = await getUser(context)
 
     return {
         props: {
-            // @ts-ignore
-            // avatar: userData.avatar | null
+            username,
+            bio: bio || null,
+            avatar: avatar || null,
+            location: location || null
         }
     }
 }
 
-export function Content(props: {
-    children: ReactNode
-}) {
-    return (
-        <div className="px-4">
-            {props.children}
-        </div>
-    )
-}
-export function Select(props: { options: string[], name?: string }) {
-    return (
-        <select name={props.name}>
-            <option value="کلیشب">شسبیس</option>
-            {props.options.map(currentItem => (
-                <option value={currentItem} key={currentItem}>
-                    {currentItem}
-                </option>
-            ))
-            }
-        </select>
-    )
-}
-export default function EditProfile() {
-    const [isValid, setIsValid] = useState(false)
+export default function Profile(props: Props) {
+    const { data } = useSession()
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [loading, setLoading] = useState(false)
+    const [src, setSrc] = useState<string>()
 
-    const handleSubmit: FormEventHandler = async (event) => {
-        event.preventDefault()
-        const formData = new FormData(event.target)
-        const endpoint = "/api/edit-profile"
-        const body = {
-            username: formData.get('username'),
-            state: formData.get('state')
-        }
-        try {
-            const response = await axios.post(endpoint, body)
+    function fileInputHandler() {
+        fileInputRef.current?.click()
 
-        } catch (error) {
-            alert('یه مشکلی پیش اومده!')
-        }
     }
 
+    async function uploadFileHandler(event: ChangeEvent<HTMLInputElement>) {
+        const files = event.target.files
+        if (files) {
+            const file = files[0]
+            setSrc(URL.createObjectURL(file))
+        }
+    }
+    const session = useSession()
+
     return (
-        <>
-            <Header
-                start={<HeaderTitle>تکمیل پروفایل</HeaderTitle>}
-            />
+        <Page>
+            {JSON.stringify(session)}
+            <Header extraClasses='flex items-center justify-between'>
+                <h1 className="text-xl font-bold">ویرایش پروفایل</h1>
+                <FullScreen />
+            </Header>
             <Content>
-                
-                <form method="POST" onSubmit={handleSubmit}>
-                    <div className="flex flex-col items-center gap-y-3">
-                        <ProfilePic/>   
-                        <SelectAvatar />
+                <div className='flex flex-col items-center relative'>
+                    {loading && <Spinner />}
+                    <Avatar src={'https://picsum.photos/80'} />
+                    <div className='-translate-y-4'>
+                        <IconButton onClick={fileInputHandler}><PenFill /></IconButton>
+                        <input type="file" accept='.jpg, .jpeg' hidden ref={fileInputRef} onChange={uploadFileHandler} />
                     </div>
-                    {/* <PickUsername
-                        name='username'
-                        onChange={isValid => setIsValid(isValid)}
-                    /> */}
-                    {/* <Select
-                        options={statics.states}
-                        name='state'
-                    />
-                    <Button>ثبت و ذخیره</Button> */}
-                </form>
+                </div>
+                <SelectUsername name='username' onChange={value => { }} />
+                <Label>بایو</Label>
+                <Textarea />
             </Content>
-        </>
+        </Page>
     )
 }
