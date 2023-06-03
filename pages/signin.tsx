@@ -1,5 +1,5 @@
-import Button from "@/features/Button";
-import Input, { Label } from "@/features/form";
+import Button from "@/components/Button";
+import { Label, Input } from "@/components/form";
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getCsrfToken } from "next-auth/react"
 

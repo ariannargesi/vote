@@ -9,9 +9,11 @@ interface LabelProps extends Omit<HTMLProps<HTMLLabelElement>, 'className'> {
     sm?: boolean 
 }
 
-export default forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     return <input {...props} className={className} ref={ref} />
 })
+
+
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => (
     <textarea {...props} className={cn(className, 'h-18')} ref={ref} />

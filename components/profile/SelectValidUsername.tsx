@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useRef } from "react";
-import Input, { Label } from "../form";
+import { Label, Input } from "../form";
 import Spinner from "../Spinner";
 import axios from "axios";
 import { CheckUsernameResponseType } from "@/pages/api/check-username";

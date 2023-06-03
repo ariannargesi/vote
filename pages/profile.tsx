@@ -1,47 +1,84 @@
-import Button from "@/features/Button"
-import { signIn, signOut, useSession } from "next-auth/react"
-import cn from 'classnames'
-import SelectUsername from "@/features/profile/SelectValidUsername"
-import { Label, Textarea } from "@/features/form"
-const li = 'py-1 px-4 rounded'
-
-export function MyPolls (props) {
-    return (
-        <div>
-            {props.list.map(currentItem => (
-                <div key={Math.random()} className="py-2 px-4 rounded my-2 bg-gray-100">
-                    <span>بهترین گزینه برای شهرداری رشت کدام است؟</span>
-                    <div className="flex gap-x-8">
-                        <span className="text-sm italic text-gray-600">۱۲۰۰ شرکت کننده</span>
-                        <span className="text-sm italic text-gray-600">۴۵ نظر</span>
-                    </div>
-                    
-                </div>
-            ))}
-        </div>
-    )
-}
+import FullScreen from '@/components/full-screen'
+import { Header, Content, Page } from '../pages/cmp'
+import { CaretDownFill, CaretUpFill, GearWideConnected, Pen } from 'react-bootstrap-icons'
+import Image from 'next/image'
+import Button from '@/components/Button'
+import Link from 'next/link'
+import EditProfile from './edit-profile'
+import { useRouter } from 'next/router'
 
 export default function Profile() {
-    const { data } = useSession()
+    const router = useRouter()
+
+    function goToEdit () {
+        router.push('/edit-profile')    
+    }
+
     return (
-        <div>
-            <div className="absolute right-0 mr-16">
-                <ul>
-                    <li className={cn(li, 'bg-blue-100 text-blue-600')}>رای‌گیری های من</li>
-                    <li className={li}>پروفایل من</li>
-                    <li className={li}>تحیلیل رای‌گیری (بزودی)</li>
-                </ul>
-            </div>
-            {/* <SelectUsername onChange={function (value: boolean): void {
-                throw new Error("Function not implemented.")
-            }} name={""} />
-            <Label>بایو</Label>
-            <Textarea/>
-            <div className="mt-2" >
-                <Button color="success">ذخیره</Button>
-            </div> */}
-            <MyPolls list={[1,2,3,4,4,5,6,7,7,78]}/>
-        </div>
+        <Page>
+            <style jsx>{`
+                 .ss {
+                    background-color: #dcfce7;
+                    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #dcfce7 18px ), repeating-linear-gradient( #ffffff55, #ffffff );
+                }
+                
+                .bb {
+                    background-color: #fef08a;
+                    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #fef08a 18px ), repeating-linear-gradient( #ffffff55, #ffffff );
+                }
+            `}</style>
+
+            <Header extraClasses='flex items-center justify-between'>
+                <h1 className="text-xl font-bold">پروفایل من</h1>
+                <FullScreen />
+            </Header>
+            <Content>
+                <div className="flex flex-col gap-y-5">
+                    <div>
+                        <div className='flex gap-x-3 items-center'>
+                            <Image
+                                className='rounded-full'
+                                src={'https://picsum.photos/80'}
+                                width={80} height={80} alt='your pic'
+                            />
+                            <div className='w-full'>
+                                <span className='font-bold text-lg'>الهام رضا ناصری</span>
+                                <br />
+                                <p>سلام خدمت دوستان. آرین حسن‌زاده هستم برنامه نویس و توسعه دهنده نرم‌ٔآفزار. امیدوارم در کنار همدیگه یاد بگیریم تا بتونیم جامعه بهتری بسازیم</p>
+                            </div>
+                        </div>
+                        <Button outline full extendClass='mt-4' onClick={goToEdit} >ویرایش </Button>
+                    </div>
+                    <div className='flex gap-x-3'>
+                        <div className='rounded-md p-5 ss'>
+                            <div className='flex justify-between text-gray-500'>
+                                <span className='text-2xl'>امتیاز: </span>
+                                <span className="text-3xl font-bold mr-3 blcok">۳۴۵+</span>
+                            </div>
+                            <div className='flex justify-around'>
+                                <div className='text-green-500'>
+                                    <CaretUpFill fontSize={32} />
+                                    <span className='text-xl'>۴۰۰+</span>
+                                </div>
+                                <div className='text-red-500'>
+                                    <CaretDownFill fontSize={32} />
+                                    <span className='text-xl'>۵۵-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='rounded-md p-5 bb'>
+                            <div className='text-gray-500 flex flex-col'>
+                                <span className='text-2xl w-2/3'>رای‌گیری های من</span>
+                                <br />
+                                <span className='text-3xl font-bold text-center'>۳۲</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <Button color='danger' outline>خروج از حساب</Button>
+                    </div>
+                </div>
+            </Content>
+        </Page>
     )
 }

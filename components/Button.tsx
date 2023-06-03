@@ -10,6 +10,13 @@ export const colors = {
     'purple': 'bg-purple-400 text-white',
     'default': 'bg-black text-white'
 }
+
+const sizes = {
+    'sm': 'p-4',
+    'md': 'p-4',
+    'lg': 'p-6'
+}
+
 // outline variants
 const colorsOutlined: typeof colors = {
     success: 'border border-green-500 text-green-500',
@@ -21,9 +28,10 @@ const colorsOutlined: typeof colors = {
 }
 
 export type Color = typeof colors 
-
+export type Size = typeof sizes 
 interface Props extends HTMLProps<HTMLButtonElement> {
     color?: keyof Color,
+    size?: keyof Size,
     outline?: boolean,
     extendClass?: string
     full?: boolean 
@@ -52,6 +60,8 @@ export default function Button (props: Props) {
 }
 
 
+
+
 // Icon button 
 const iconButtonColors: typeof colors = {
     'success': 'bg-green-50 text-green-500',
@@ -61,12 +71,15 @@ const iconButtonColors: typeof colors = {
     'purple': 'bg-purple-50 text-purple-500',
     'default': 'bg-gray-50 text-black'
 }
+
+
 export function IconButton (props: Omit<Props, 'outline'>) {
 
-    let className = 'rounded-full p-2'
+    let className = 'rounded-full'
 
     className = cn(className, iconButtonColors[props.color || 'info'])
-
+    className = cn(className, sizes[props.size || 'sm'])
+    console.log(className)
     return (
         <button className={className} {...props}>
             {props.children}
