@@ -9,9 +9,9 @@ enum HintType {
     error = 'error'
 }
 
-export default function SelectUsername(props: { onChange: (value: boolean) => void, name: string }) {
+export default function SelectUsername(props: { onChange: (isValid: boolean, value: string) => void, value?: string, defaultValue?: string }) {
 
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(props.value)
     const [hint, setHint] = useState<null | HintType>(null)
     const [loading, setLoading] = useState(false)
 
@@ -19,33 +19,41 @@ export default function SelectUsername(props: { onChange: (value: boolean) => vo
 
     function handleChange(event: ChangeEvent<HTMLInputElement>): void {
         let value = event.target.value
+        
+        
+        
         if (value.indexOf(' ') > -1)
             value = value.replace(' ', '-')
 
         lastRequestKey.current = Math.random()
         setHint(null)
         setLoading(true)
-        props.onChange(false)
-        
-        checkUsername(value, lastRequestKey.current, (isValid, requestKey) => {
-            if (requestKey != lastRequestKey.current)
-                return
-            if (isValid) setHint(HintType.success)
-            else
-                if (value.length < 3)
-                    setHint(null)
-                else setHint(HintType.error)
+        if(props.onChange)
+            props.onChange(false, '')
+        if(props.defaultValue !== value)
+            checkUsername(value, lastRequestKey.current, (isValid, requestKey) => {
+                if (requestKey != lastRequestKey.current)
+                    return
+                if (isValid) setHint(HintType.success)
+                else
+                    if (value.length < 3)
+                        setHint(null)
+                    else setHint(HintType.error)
 
-            setLoading(false)
-            props.onChange(isValid)
-        })
+                setLoading(false)
+                if(props.onChange)
+                    props.onChange(
+                        isValid,
+                        value
+                    )
+            })
+        else setLoading(false)
         setValue(value)
     }
     return (
         <>
-            <br />
             <Label>نام کاربری</Label>
-            <Input value={value} onChange={handleChange} name={props.name} maxLength={64} />
+            <Input value={value} onChange={handleChange} maxLength={32} />
             <div className="h-4 mt-1">
                 {loading && <Spinner />}
                 {hint === HintType.success &&

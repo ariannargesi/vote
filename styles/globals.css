@@ -8,5 +8,6 @@ body, html, #__next {
 
 body {
     font-size: 15px;
+    direction: rtl;
 }
 

@@ -4,7 +4,7 @@ import { CaretDownFill, CaretUpFill, GearWideConnected, Pen } from 'react-bootst
 import Image from 'next/image'
 import Button from '@/components/Button'
 import Link from 'next/link'
-import EditProfile from './edit-profile'
+import EditProfile from '../app/edit-profile/edit-profile'
 import { useRouter } from 'next/router'
 
 export default function Profile() {
