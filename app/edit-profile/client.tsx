@@ -6,36 +6,38 @@ import FullScreen from "@/components/full-screen"
 import Avatar from "@/components/Avatar"
 import Spinner from '@/components/Spinner'
 import Button, { IconButton } from "@/components/Button"
-import SelectUsername from "@/components/profile/SelectValidUsername"
+import SelectUsername from "@/components/profile/select-username"
 import { Label, Textarea } from "@/components/form"
 import { PenFill } from "react-bootstrap-icons"
 import { className as inputClassName } from "@/components/form"
 import { locations } from "../../shared"
 import httpServer from "@/axios"
-import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
-import { unescape } from "querystring"
 
 export default function ProfilePage(props: { location?: string, bio?: string, username: string }) {
 
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false)
     const [username, setUsername] = useState(props.username)
     const [bio, setBio] = useState(props.bio)
     const [location, setLocation] = useState(props.location)
     const [isValidUsername, setIsValidUsername] = useState(true)
     const fileInputRef = useRef<HTMLInputElement>(null)
+
     function fileInputHandler() {
         fileInputRef.current?.click()
     }
 
-    const [data, setData] = useState(null)
-
     async function clickHandler() {
         setLoading(true)
-
         try {
             const { data } = await httpServer.patch('/user', { location, username, bio })
-            setData(data)
+            if(data.type === 'success'){
+                toast.success(data.message)
+                props.bio = bio 
+                props.location = location
+                props.username = username
+            }
+            else toast.warning(data.message)
         }
         catch (error) {
             toast.error('مشکلی پیش آمده!')
@@ -51,17 +53,15 @@ export default function ProfilePage(props: { location?: string, bio?: string, us
                 <FullScreen />
             </Header>
             <Content>
-                {JSON.stringify(data)}
                 <div className='flex flex-col items-center relative'>
-                    {loading && <Spinner />}
                     <Avatar src={'https://picsum.photos/80'} />
                     <div className='-translate-y-4'>
                         <IconButton onClick={fileInputHandler}><PenFill /></IconButton>
                         {/* <input type="file" accept='.jpg, .jpeg' hidden ref={fileInputRef} onChange={uploadFileHandler} /> */}
                     </div>
                 </div>
-                <SelectUsername value={username} defaultValue={props.username} onChange={(isValid, value) => {
-                    setIsValidUsername(isValid)
+                <SelectUsername value={username} onChange={(isValid, value) => {
+                    setIsValidUsername(isValid) 
                     setUsername(value)
                 }} />
                 <Label>بایو</Label>
@@ -84,12 +84,14 @@ export default function ProfilePage(props: { location?: string, bio?: string, us
                 }
 
                 <Button
-                    onClick={clickHandler}
+                    onClick={isLoading ? undefined : clickHandler }
                     disabled={bio === props.bio &&  location === props.location && (username == props.username || !isValidUsername)}
                     color="success"
                     full
                     extendClass="mt-5"
-                >ذخیره</Button>
+                >
+                    {isLoading ? <Spinner/> : 'ذخیره'}
+                </Button>
             </Content>
         </Page>
     )

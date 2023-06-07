@@ -3,7 +3,8 @@ import SelectAvatar from "@/components/profile/SelectAvatar";
 import axios from "axios";
 import { ReactNode, useState } from "react";
 import cn from 'classnames'
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 type Props = { children: ReactNode, extraClasses?: string }
 
 export function Page ({children, extraClasses}: Props) {
@@ -13,6 +14,7 @@ export function Page ({children, extraClasses}: Props) {
     return (
         <main className={className}>
             {children}
+            <ToastContainer/>
         </main>
     )
 }
@@ -77,7 +79,7 @@ export default function Cmp () {
 
 
 
-export function Traning (props) {
+export function Traning () {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
