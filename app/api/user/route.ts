@@ -2,77 +2,8 @@ import { getUser } from "@/app/helpers/user";
 import { users } from "@/server-logic/db/setup";
 import checkUsername from "@/server-logic/utils";
 import { locations } from "@/shared";
-import { NextResponse } from "next/server";
 import z from 'zod'
-
-
-type ResponseObject = {
-    type: string,
-    message: string,
-    status: number 
-}
-
-/**
- * operation not permitted 
- * @returns NextResponse 
- */
-function forbidden(message: string): NextResponse<ResponseObject> {
-    return NextResponse.json({
-        type: 'error',
-        message: message,
-        status: 403
-    })
-}
-
-/**
- * resource updated successfully 
- * @param message response message 
- * @returns NextResponse 
- */
-function updated(message: string): NextResponse<ResponseObject> {
-    return NextResponse.json({
-        type: 'success',
-        message: message,
-        status: 204
-    })
-}
-/**
- * bad request
- * @param error error object
- * @returns NextResponse
- */
-function badRequest(error: any): NextResponse<ResponseObject> {
-    return NextResponse.json({
-        type: 'error',
-        message: error,
-        status: 400
-    })
-}
-
-/**
- * internal server error 
- * @returns NextResponse 
- */
-function internalError(): NextResponse<ResponseObject> {
-    return NextResponse.json({
-        type: 'error',
-        message: 'مشکلی پیش آمده!',
-        status: 500
-    })
-}
-
-/**
- *  not found 404 
- * @param message response message 
- * @returns NextResponse 
- */
-function notFound(message: string): NextResponse<ResponseObject> {
-    return NextResponse.json({
-        type: 'error',
-        message: message,
-        status: 404
-    })
-}
+import { badRequest, forbidden, internalError, notFound, updated } from "../helpers";
 
 const zod_updateProfile = z.object({
     username: z.string().min(3).max(32).optional(),

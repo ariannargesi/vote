@@ -1,25 +1,77 @@
-import formidable, { File } from "formidable";
-import Jimp from "jimp";
+import { NextApiRequest, NextApiResponse } from "next";
+import sizeOf from 'image-size'
+import multer from 'multer'
+import path from 'path';
 import fs from 'fs'
-import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
-import authOption from "./auth/[...nextauth]";
-import { getServerSession } from "next-auth";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage, 
+  limits: {
+    fieldNameSize: 300,
+    fileSize: 1000000
+  },
+  fileFilter: (req, file, callback) => {
+    const acceptableExtensions = ['.png', '.jpg', '.jpeg'];
+    if (!(acceptableExtensions.includes(path.extname(file.originalname)))) {
+      return callback(new Error('file type is not acceptable'));
+    }
+    callback(null, true);
+  }
+}).single('file');
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // const session = await getServerSession(req, res, authOption)
-  // if (!session)
-  //   return res.status(302).end()
-  const form = new formidable.IncomingForm()
-  form.parse(req, (error, fields, files) => {
-    const file = files.file as File
-    console.log('newFilename: ', file.newFilename)
-    const newFilename = file.newFilename + '.' + 'jpg';
-    const newPath = `./${newFilename}`;
-    const fileData = fs.readFileSync(file.filepath);
-    fs.writeFileSync(newPath, fileData)
-    console.log('write was successfull')
-  })
-  res.json({ status: 'success' })
+  if (req.method === 'POST') {
+     new Promise<void>((resolve, reject) => {
+      upload(req as any, res as any, (err) => {
+        if (err) {
+          reject(err);
+        } else {    
+          /**
+           * ABOUT @ts-ignore
+           * request object witht type of NextApiRequest it is not 
+           * supported by multer, so in order to keep code short, I added ts-ignore 
+           */
+          // @ts-ignore
+          const file = req.file 
+          const path = file.destination  + file.filename 
+          const {width, height} = sizeOf(path)
+          if(width != height){
+            try {
+              fs.unlinkSync(path)
+            }catch(err){
+              console.log(err)
+            }
+            reject('طول و عرض عکس برابر نیست')
+          }
+          else {
+            // @ts-ignore
+            resolve(req.file);
+          }
+        }
+      })
+    }).then(file => {
+      // @ts-ignore
+        if(!file)
+        res.status(400).send('No file was uploaded');
+        else 
+        res.status(200).send('File uploaded successfully');
+    }).catch(error => {
+      res.status(200).send(error)
+    })
+    
+  } else {
+    res.status(405).send('Method not allowed');
+  }
 }
 
 export const config = {

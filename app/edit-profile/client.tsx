@@ -46,6 +46,18 @@ export default function ProfilePage(props: { location?: string, bio?: string, us
         }
     }
 
+    async function uploadFileHandler (event: ChangeEvent<HTMLInputElement>) {
+        const files = event.target.files
+        if(!files)
+            return 
+        const file = files[0]
+        console.log(file)
+        const response = await httpServer.post('/upload-file', { username: 'adf', file  }, { headers: {
+            'Content-Type': 'multipart/form-data'
+        } })
+        toast.success(JSON.stringify(response.data))
+    }
+
     return (
         <Page>
             <Header extraClasses='flex items-center justify-between'>
@@ -57,7 +69,7 @@ export default function ProfilePage(props: { location?: string, bio?: string, us
                     <Avatar src={'https://picsum.photos/80'} />
                     <div className='-translate-y-4'>
                         <IconButton onClick={fileInputHandler}><PenFill /></IconButton>
-                        {/* <input type="file" accept='.jpg, .jpeg' hidden ref={fileInputRef} onChange={uploadFileHandler} /> */}
+                        <input type="file"  hidden ref={fileInputRef} onChange={uploadFileHandler} />
                     </div>
                 </div>
                 <SelectUsername value={username} onChange={(isValid, value) => {
