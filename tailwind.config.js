@@ -3,6 +3,7 @@ module.exports = {
   
   content: [
     "./pages/**",
+    "./app/**",
     "./features/**",
     "./components/**",
 

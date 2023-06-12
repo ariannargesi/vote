@@ -9,6 +9,7 @@ export default async function Profile() {
             username={user.username}
             bio={user.bio}
             location={user.location}
+            avatar={user.avatar ? user.avatar.split('/')[1] : undefined}
         />
 
 

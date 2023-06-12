@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { HTMLProps } from 'react'
-import { Circle } from 'react-bootstrap-icons'
+import { Circle, Person, PersonCircle } from 'react-bootstrap-icons'
 
 // variants
 const sizes = {
@@ -19,7 +19,7 @@ interface Props extends HTMLProps<HTMLImageElement> {
 export default function Avatar (props: Props) {
 
     let className = 'rounded-full'
-
+     
     className = cn(className, sizes[props.size || 'md'])
     className = cn(className, 
         {
@@ -29,7 +29,8 @@ export default function Avatar (props: Props) {
             'rounded-full': props.circle 
         }
         )
-  
+    if(!props.src)
+        return <div className={cn(className, 'bg-gray-200 flex items-center justify-center')}> <PersonCircle color='white' fontSize={80} /> </div>
     return (
         <img className={className} {...props} ></img>
     )

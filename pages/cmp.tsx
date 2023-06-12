@@ -40,7 +40,7 @@ export function Footer ({children}: Props) {
 
 export function Content ({children}: Props) {
     return (
-        <div className="h-full p-4" style={{overflow: 'scroll'}}>
+        <div className="h-full p-4 overflow-scroll relative">
             {children}
         </div>
     )
