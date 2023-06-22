@@ -13,7 +13,7 @@ export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof
         آدرس ایمیل خودت را وارد کن!
         <Input type="email" id="email" name="email" required />
       </Label>
-      <Button type="submit" color="info" full>ورود</Button>
+      <Button type="submit" color="primary" full>ورود</Button>
     </form>
     </div>
   )

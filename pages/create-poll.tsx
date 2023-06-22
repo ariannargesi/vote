@@ -148,7 +148,7 @@ const [isLoading, setLoading] = React.useState(false)
                     </form>
             </Content>
             <Footer>
-                <Button type='submit' color="info"  extendClass="w-1/3" onClick={handleSubmit(submitHandler)}>
+                <Button type='submit' color="primary"  extendClass="w-1/3" onClick={handleSubmit(submitHandler)}>
                     ذخیره
                     {isLoading && <Spinner/> }
                 </Button>

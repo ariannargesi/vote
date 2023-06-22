@@ -59,7 +59,7 @@ export default function SelectAvatar() {
     return (
         <div className="flex flex-col items-center">
             <input type="file" hidden ref={inputRef} accept="png" onChange={handleChange} />
-            <Button color="info" onClick={handleClick}>انتخاب عکس</Button>
+            <Button color="primary" onClick={handleClick}>انتخاب عکس</Button>
 
             <Modal
                 visibility={!!src}
