@@ -1,3 +1,4 @@
+'use client'
 import Button from "@/components/Button";
 import SelectAvatar from "@/components/profile/SelectAvatar";
 import axios from "axios";

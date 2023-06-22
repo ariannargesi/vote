@@ -11,8 +11,8 @@ import axios from "axios"
 import Spinner from '@/components/Spinner'
 import React from "react"
 import { Content, Footer, Header, Page } from "./cmp"
-import httpServer from "@/axios"
 import FullScreen from "@/components/full-screen"
+import hookForm from "./polls/hook-form"
 const inputErrorClassName = 'block text-sm text-red-500'
 
 interface FormType {
@@ -48,10 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function NewVote() {
-    const [type, setType] = React.useState(null)
-
-    const session = useSession()
-    const [isLoading, setLoading] = React.useState(false)
+const [isLoading, setLoading] = React.useState(false)
     const { register, handleSubmit, control, formState: { errors } } = useForm<FormType>({
         defaultValues: {
             options: [' ', ' '],
@@ -65,17 +62,10 @@ export default function NewVote() {
 
     const { fields, remove, append } = useFieldArray({
         control,
-        name: "options", 
-       
+        name: "options",        
     });
 
-    
-    
-  
-
-    function submitHandler(data: any) {
-        console.log(data)
-    }
+    function submitHandler(data: any) {}
     return (
         <Page extraClasses="max-w-3xl mx-auto">
             <Header extraClasses="flex items-center justify-between" >
@@ -86,19 +76,8 @@ export default function NewVote() {
                     <form className="flex flex-col justify-between h-full overflow-y-scroll">
                         <div>
                             <Label>عنوان رای‌گیری</Label>
-                            <Input  {...register('title', {
-                                required: true,
-                                minLength: {
-                                    value: 16,
-                                    message: 'عنوان باید حداقل 16 کاراکتر داشته باشه!'
-                                },
-                                maxLength: {
-                                    value: 256,
-                                    message: 'عنوان باید زیر 257 کلمه باشه!'
-                                }
-                            })} />
+                            <Input  {...register('title', hookForm.title )} />
                             {errors.title && <span className={inputErrorClassName}>{errors.title.message}</span>}
-
                             {/* OPTIONS */}
                             <div className="px-3">
                                 <ul className="mb-3">
@@ -128,12 +107,7 @@ export default function NewVote() {
                             <br />
 
                             <Label> توضیحات <span className="text-sm">(اختیاری)</span></Label>
-                            <Textarea {...register('caption', {
-                                required: false, maxLength: {
-                                    value: 1024,
-                                    message: 'توضیحات باید کمتر از 1025 کاراکتر باشه!'
-                                }
-                            })} />
+                            <Textarea {...register('caption', hookForm.caption)} />
                             {errors.caption && <span className="text-red-400">{errors.caption.message}</span>}
                             <Label>دسته‌بندی <span className="text-sm">(اختیاری)</span></Label>
                             <select className={inputClassName} {...register('category', { required: false })}>

@@ -11,3 +11,11 @@ body {
     direction: rtl;
 }
 
+@layer components {
+    .input {
+      @apply bg-gray-100 w-full p-1.5 border border-gray-200 shadow-sm rounded-md mb-0.5;
+    }
+    .text-light {
+      @apply text-gray-500
+    }
+  }
