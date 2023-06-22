@@ -28,7 +28,7 @@ export default function Fields(props: any) {
             {fields.length < 6 &&
                 <div className="flex mt-3">
                     <div className="w-8"></div>
-                    <Button full outline onClick={addField}> افزودن <Plus size={20} /></Button>
+                    <Button type="button" full outline onClick={addField}> افزودن <Plus size={20} /></Button>
                 </div>
             }
         </div>
