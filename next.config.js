@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // experimental: {
-  //   appDir: true
-  // },
+  experimental: {
+    serverActions: true 
+  }, 
   images: {
     domains: ['picsum.photos'],
   },

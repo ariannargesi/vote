@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import cn from 'classnames'
 import { HTMLProps, MouseEventHandler, forwardRef, useEffect } from 'react'
 
-export const className = 'bg-gray-100 w-full p-1.5 border border-gray-200 shadow-sm rounded-md mb-0.5'
+export const className = 'bg-secondary focus:ring-1 focus:ring-green-400 focus:outline-none w-full p-1.5 shadow-sm rounded-md mb-0.5 mt-2'
 
 type InputProps = Omit<HTMLProps<HTMLInputElement>, 'className'>
 type TextAreaProps = Omit<HTMLProps<HTMLTextAreaElement>, 'className'>

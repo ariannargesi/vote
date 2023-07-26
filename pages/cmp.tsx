@@ -6,7 +6,7 @@ import { ReactNode, useState } from "react";
 import cn from 'classnames'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
-type Props = { children: ReactNode, extraClasses?: string }
+type Props = { children?: ReactNode, extraClasses?: string }
 
 export function Page ({children, extraClasses}: Props) {
     let className = 'flex flex-col justify-between h-full max-w-3xl mx-auto'
@@ -20,13 +20,14 @@ export function Page ({children, extraClasses}: Props) {
     )
 }
 
-export function Header ({children, extraClasses}: Props) {
-    let className = "p-3 border-b"
+export function Header ({children, extraClasses, title, end}: Props & {title?: string, end?: ReactNode}) {
+    let className = "px-3 py-2 border-b border-black flex"
     if(extraClasses)
         className = cn(className, extraClasses)
     return (
         <header className={className}>
-            {children}
+            {title && <h1 className="items-center font-bold text-xl">{title}</h1> }
+            {end && <div className="mr-auto">{end}</div>}
         </header>
     )
 }
@@ -41,7 +42,7 @@ export function Footer ({children}: Props) {
 
 export function Content ({children}: Props) {
     return (
-        <div className="h-full overflow-scroll relative">
+        <div className="h-full overflow-scroll relative p-2">
             {children}
         </div>
     )

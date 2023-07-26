@@ -1,6 +1,10 @@
 
 import localFont from 'next/font/local'
 import '../styles/globals.css'
+import { LayoutProps } from '@/.next/types/app/layout'
+import { getServerSession } from 'next-auth'
+import authOption from '@/pages/api/auth/[...nextauth]'
+import Provider from './SessionProvider'
 
 const iranYekan = localFont({
   src: [
@@ -17,15 +21,16 @@ const iranYekan = localFont({
   ]
 })
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout(props: LayoutProps) {
+
+  const session = await getServerSession(authOption)
+
   return (
     <html lang="en">
       <body className={iranYekan.className}>
-          {children}
+        <Provider session={session}>
+          {props.children}
+        </Provider>
       </body>      
     </html>
   )

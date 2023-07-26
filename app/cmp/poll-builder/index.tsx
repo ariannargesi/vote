@@ -19,7 +19,7 @@ export const TextError = (props: { error: FieldError | undefined }) => {
 
 export default function PollBuilder() {
 
-    const { errors, register, submitHandler, control, fields, addField, removeField } = uesPollBuilder()
+    const { errors, register, submitHandler, control, fields, addField, removeField, submitText, isLoading } = uesPollBuilder()
 
     return (
         <div className="flex flex-col h-full">
@@ -62,7 +62,7 @@ export default function PollBuilder() {
                 </div>
             </form>
             <div className="p-2">
-                <Button type="submit" color="primary" onClick={submitHandler} full>Submit</Button>
+                <Button type="submit" color="primary" onClick={submitHandler} full disabled={isLoading}>{submitText}</Button>
             </div>
         </div>
     )
