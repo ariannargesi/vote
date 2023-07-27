@@ -4,18 +4,20 @@
 
 :root {
   --primary: #083344;
-  --secondary: #284E5C;
+  --secondary: #284e5c;
 }
 
-body, html, #__next {
-    height: 100%;
+body,
+html,
+#__next {
+  height: 100%;
 }
 
 body {
-    font-size: 15px;
-    direction: rtl;
-    background-color: #083344;
-    color: white;
+  font-size: 15px;
+  direction: rtl;
+  background-color: #083344;
+  color: white;
 }
 
 input {
@@ -23,10 +25,35 @@ input {
 }
 
 @layer components {
-    .input {
-      @apply bg-gray-100 w-full p-1.5 border border-gray-200 shadow-sm rounded-md mb-0.5;
-    }
-    .text-light {
-      @apply text-gray-500
-    }
+  .input {
+    @apply bg-gray-100 w-full p-1.5 border border-gray-200 shadow-sm rounded-md mb-0.5;
   }
+  .text-light {
+    @apply text-gray-500;
+  }
+}
+
+@keyframes loadingAnimation {
+  0%{ transform: scale(1) }
+  10%{ transform: scale(1.1) }
+  20%{ transform: scale(1.2) }
+  30%{ transform: scale(1.3) }
+  40%{ transform: scale(1.4) }
+  50%{ transform: scale(1.5) }
+  60%{ transform: scale(1.4) }
+  70%{ transform: scale(1.3) }
+  80%{ transform: scale(1.2) }
+  90%{ transform: scale(1.1) }
+  100%{ transform: scale(1) }
+}
+.loading-dot{
+  height: 6px;
+   width: 6px;
+  background-color: white;
+  border-radius: 100%;
+  display: inline-block;
+  animation: loadingAnimation ;
+  animation-duration: 500ms ;
+  animation-iteration-count: infinite;
+  margin: 0 4px;
+}

@@ -3,11 +3,11 @@ import { HTMLProps } from 'react'
 
 // variants
 export const colors = {
-    'success': 'bg-green-400 text-white',
-    'primary': 'bg-blue-400 text-white',
-    'danger': 'bg-red-400 text-white',
-    'warning': 'bg-yellow-400 text-white',
-    'purple': 'bg-purple-400 text-white',
+    'success': 'bg-green-400 text-white focus:bg-green-500',
+    'primary': 'bg-blue-400 text-white focus:bg-blue-500',
+    'danger': 'bg-red-400 text-white focus:bg-red-500',
+    'warning': 'bg-yellow-400 text-white focus:bg-yellow-500',
+    'purple': 'bg-purple-400 text-white focus:bg-purple-500',
     'default': 'bg-black text-white'
 }
 
@@ -40,7 +40,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
 
 export default function Button (props: Props) {
 
-    let className = 'py-1.5 px-4 rounded-md flex gap-2 items-center justify-center'
+    let className = 'py-1.5 px-4 rounded-md flex gap-2 items-center justify-center disabled:opacity-40 duration-100  min-h-[34px] '
 
     if(props.extendClass)
         className = cn(className, props.extendClass)
