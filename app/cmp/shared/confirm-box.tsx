@@ -4,6 +4,7 @@ import { MouseEvent } from "react";
 import Button from "@/components/Button";
 import cn from "classnames";
 import { create } from "zustand";
+import Overlay from "./overlay";
 
 interface ConfirmBoxStatet {
   open: boolean;
@@ -41,20 +42,18 @@ export default function ConfirmBox() {
     shallow
   );
 
-  let container =
-    "bg-black/40 backdrop-blur-sm h-full max-w-3xl w-full duration-150 fixed top-0 left-0 right-0 mx-auto";
   let confirmBox =
     "w-11/12 bg-secondary pt-6 px-1 z-10 absolute bottom-0 rounded-t-2xl delay-150 duration-150 left-0 right-0 mx-auto";
 
   if (open === false) {
-    container = cn(container, "opacity-0");
+  
     confirmBox = cn(confirmBox, "translate-y-full");
   }
 
 
 
   return (
-    <div className={container} onClick={closeBox}>
+    <Overlay onClick={closeBox} active={open}>
       <div className={confirmBox}>
         <h4 className="font-bold text-xl text-danger text-center">
           {boxTitle}
@@ -68,6 +67,6 @@ export default function ConfirmBox() {
           </Button>
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 }
