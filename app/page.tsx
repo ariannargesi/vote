@@ -1,5 +1,5 @@
 "use client";
-import { Header, Footer, Content, Page } from "@/pages/cmp";
+import { Header, Footer, Content, Page } from "@/app/cmp/shared/layouts";
 import Navigation from "@/app/cmp/navigation";
 import Button from "@/components/Button";
 import { signOut, useSession } from "next-auth/react";

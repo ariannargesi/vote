@@ -5,10 +5,10 @@ import { HTMLProps } from 'react'
 export const colors = {
     'success': 'bg-green-400 text-white focus:bg-green-500',
     'primary': 'bg-blue-400 text-white focus:bg-blue-500',
-    'danger': 'bg-red-400 text-white focus:bg-red-500',
+    'danger': 'bg-danger text-white focus:bg-danger',
     'warning': 'bg-yellow-400 text-white focus:bg-yellow-500',
     'purple': 'bg-purple-400 text-white focus:bg-purple-500',
-    'default': 'bg-black text-white'
+    'default': 'bg-white text-black'
 }
 
 const sizes = {
@@ -20,8 +20,8 @@ const sizes = {
 // outline variants
 const colorsOutlined: typeof colors = {
     success: 'border border-green-500 text-green-500',
-    danger: ' border border-red-500 text-red-500',
-    default: 'border border-black text-black',
+    danger: ' border border-danger text-danger',
+    default: 'border border-white text-white',
     primary: 'border border-blue-500 text-blue-500',
     warning: 'border border-yellow-500 text-yellow-500',
     purple: 'border border-purple text-purple-500'

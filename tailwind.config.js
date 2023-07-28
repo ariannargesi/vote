@@ -12,7 +12,8 @@ module.exports = {
     extend: {
       colors:{ 
         'primary': '#083344',
-        'secondary': "#284E5C"
+        'secondary': "#284E5C",
+        'danger': "#FF9696"
       },
       animation: {
         "spin-fast": "spin 0.5s linear infinite",
