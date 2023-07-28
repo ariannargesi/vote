@@ -1,6 +1,6 @@
 import { NextMiddleware, NextResponse } from "next/server";
 
-const publicPages = ['/','/fff', '/login', '/signup', '/api/auth/signin', '/edit-profile', '/new-poll', '/verify']
+const publicPages = ['/','/cmp', '/login', '/signup', '/api/auth/signin', '/edit-profile', '/new-poll', '/verify']
 
 export const middleware: NextMiddleware = async (req) => {
     const sessionToken = req.cookies.get('next-auth.session-token')

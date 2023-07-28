@@ -2,7 +2,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { className as inputClassName, Input } from "@/components/form"
-import { Content, Header, Page } from "@/pages/cmp";
+import { Content, Header, Page } from "@/app/cmp/shared/layouts";
 
 import Button from "@/components/Button";
 import { getCsrfToken, signIn } from "next-auth/react";
