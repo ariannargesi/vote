@@ -1,13 +1,16 @@
 'use client'
 
-import { useState } from "react"
-import ConfirmBox, { useConfirmBoxStore } from "./shared/confirm-box"
+import React, { useState } from "react"
+import Modal, { useModalStore } from "./shared/modal"
 import { Header, Footer, Page, Content } from "./shared/layouts"
 import Button from "@/components/Button"
+import LocationsList from './locations-list'
 
 export default function Playground () {
     
-    const askformConfirm = useConfirmBoxStore(state => state.askForConfirm)
+    const [input, setInput] = useState('')
+
+    const toggleModal = useModalStore(state => state.toggleModal)
 
     function confirmCallback () {
         alert('confirmCallback')
@@ -15,23 +18,14 @@ export default function Playground () {
 
     function onClickHandler () {
 
-        askformConfirm(
-            'مطمعنی میخوای اینو حذف کنیبلسبی؟', 
-            'آره. حذفش کن',
-            confirmCallback
-        )
+        toggleModal()
     }
 
     return (
         <Page>
             <Header title="کامپوننت‌ها" end={<Button className="relative z-10" onClick={onClickHandler}>T</Button>}/>
             <Content>
-                <h1 className="text-4xl">سلام  به تو ای دوست من</h1>
-          
-                <h1 className="text-4xl">سلام  به تو ای دوست من</h1>
-                <h1 className="text-4xl">سلام  به تو ای دوست من</h1>
-                <h1 className="text-4xl">سلام  به تو ای دوست من</h1>
-                <ConfirmBox/>
+                <LocationsList />
             </Content>
         </Page>
     )
