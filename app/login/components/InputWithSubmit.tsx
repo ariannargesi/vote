@@ -2,7 +2,7 @@
 import { Input } from "@/components/form";
 import Button from "@/components/Button";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Loading } from "@/app/cmp/poll-builder/shared/loading/dots";
+import { Loading } from "@/app/cmp/shared/loading/dots";
 
 function emailIsValid(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

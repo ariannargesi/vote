@@ -6,6 +6,7 @@ import { ReactNode, useState } from "react";
 import cn from 'classnames'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+
 type Props = { children?: ReactNode, extraClasses?: string }
 
 export function Page ({children, extraClasses}: Props) {
@@ -32,7 +33,7 @@ export function Header ({children, extraClasses, title, end}: Props & {title?: s
     )
 }
 
-export function Footer ({children}: Props) {
+export function Footer ({children}: {children: ReactNode}) {
     return (
         <footer className="p-2 border-t">
             {children}
@@ -40,7 +41,7 @@ export function Footer ({children}: Props) {
     )
 }
 
-export function Content ({children}: Props) {
+export function Content ({children}: {children: ReactNode}) {
     return (
         <div className="h-full overflow-scroll relative p-2">
             {children}
