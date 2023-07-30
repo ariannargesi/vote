@@ -10,6 +10,7 @@ import Form from "./components/InputWithSubmit";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import InputWithSubmit from "./components/InputWithSubmit";
+import { sign } from "crypto";
 
 export default function Login () {    
 
@@ -21,7 +22,7 @@ export default function Login () {
 
     function submit () {
         if(input){
-            // signIn('email', {callbackUrl: '/hello'})
+            signIn('email', {callbackUrl: '/cmp', email:input}, {})
         }
     }
 
