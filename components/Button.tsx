@@ -3,8 +3,9 @@ import { HTMLProps } from 'react'
 
 // variants
 export const colors = {
+    'primary': 'bg-primary text-white focus:bg-secondary',
     'success': 'bg-green-400 text-white focus:bg-green-500',
-    'primary': 'bg-blue-400 text-white focus:bg-blue-500',
+    'info': 'bg-blue-400 text-white focus:bg-blue-500',
     'danger': 'bg-danger text-white focus:bg-danger',
     'warning': 'bg-yellow-400 text-white focus:bg-yellow-500',
     'purple': 'bg-purple-400 text-white focus:bg-purple-500',
@@ -12,23 +13,25 @@ export const colors = {
 }
 
 const sizes = {
-    'sm': 'p-',
-    'md': 'p-4',
+    'sm': ' px-2',
+    'md': 'py-1.5 px-4',
     'lg': 'p-6'
 }
 
 // outline variants
 const colorsOutlined: typeof colors = {
+    primary: 'border border-primary text-primary',
     success: 'border border-green-500 text-green-500',
     danger: ' border border-danger text-danger',
     default: 'border border-white text-white',
-    primary: 'border border-blue-500 text-blue-500',
+    info: 'border border-blue-500 text-blue-500',
     warning: 'border border-yellow-500 text-yellow-500',
     purple: 'border border-purple text-purple-500'
 }
 
 export type Color = typeof colors 
 export type Size = typeof sizes 
+
 interface Props extends HTMLProps<HTMLButtonElement> {
     color?: keyof Color,
     size?: keyof Size,
@@ -40,7 +43,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
 
 export default function Button (props: Props) {
 
-    let className = 'py-1.5 px-4 rounded-md flex gap-2 items-center justify-center disabled:opacity-40 duration-100  min-h-[34px] '
+    let className = ' rounded-md flex gap-2 items-center justify-center disabled:opacity-40 duration-100  min-h-[34px] '
 
     if(props.extendClass)
         className = cn(className, props.extendClass)
@@ -53,6 +56,9 @@ export default function Button (props: Props) {
         className = cn(className, colorsOutlined[props.color || 'default'])  
     else 
     className = cn(className, colors[props.color || 'default'])
+
+    if(props.size)
+     className = cn(className, sizes[props.size || 'sm'])
   
     return (
         <button className={className} {...props}></button>

@@ -1,26 +1,16 @@
 import { headers } from "next/headers"
-
-
+import React from 'react'
+import { Page, Header, Content } from '../cmp/shared/layouts'
+import VerifyMessage from "./verify-message"
 
 export default function Verify () {
 
-    const headersList = headers()
-    const referer = headersList.get('referer')
-
-    let message  
-
-    if(referer?.indexOf('?poll=true'))
-        message = (
-           <>یک ایمیل حاوی لینک تایید برات ارسال شد. لطفا لینک رو <span className="text-green-500">کپی</span> و در <span className="text-green-500">همین مرورگر</span> کپی کن</>
-        )
-    else message = 'یک ایمیل حاوی لینک تایید برات ارسال. روی لینک کلیک کن تا اکاننت تایید بشه!'
-    
     return (
-        <div className="mt-32 px-8">
-            <h1 className="text-2xl font-bold">ایمیلات رو چک کن!</h1>
-            <p>
-                {message}
-            </p>
-        </div>
+        <Page>
+            <Header title={'لینک تایید'}/>
+            <Content extendClass="mt-64 p-2">
+                <VerifyMessage />
+            </Content>
+        </Page>
     )
 }
