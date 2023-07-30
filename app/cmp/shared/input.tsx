@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 })
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => (
-    <textarea {...props} className={cn(className, 'h-18')} ref={ref} />
+    <textarea {...props} className={cn(className, 'h-56',props.dark ? 'bg-primary' : "bg-secondary")} ref={ref} />
 ))
 
 export function Label(props: LabelProps) {
