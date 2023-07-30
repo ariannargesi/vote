@@ -57,8 +57,7 @@ export default function Button (props: Props) {
     else 
     className = cn(className, colors[props.color || 'default'])
 
-    if(props.size)
-     className = cn(className, sizes[props.size || 'sm'])
+    className = cn(className, sizes[props.size || 'sm'])
   
     return (
         <button className={className} {...props}></button>
