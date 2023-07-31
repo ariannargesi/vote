@@ -9,7 +9,7 @@ export const colors = {
     'danger': 'bg-danger text-white focus:bg-danger',
     'warning': 'bg-yellow-400 text-white focus:bg-yellow-500',
     'purple': 'bg-purple-400 text-white focus:bg-purple-500',
-    'default': 'bg-white text-black'
+    'default': null
 }
 
 const sizes = {
