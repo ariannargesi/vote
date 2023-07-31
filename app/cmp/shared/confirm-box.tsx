@@ -6,6 +6,8 @@ import cn from "classnames";
 import { create } from "zustand";
 import Overlay from "./overlay";
 
+import React from 'react'
+
 interface ConfirmBoxStatet {
   open: boolean;
   boxTitle?: string;
@@ -54,7 +56,7 @@ export default function ConfirmBox() {
 
   return (
     <Overlay onClick={closeBox} active={open}>
-      <div className={confirmBox}>
+      <div className={confirmBox} onClick={event => event.stopPropagation()}>
         <h4 className="font-bold text-xl text-danger text-center">
           {boxTitle}
         </h4>
