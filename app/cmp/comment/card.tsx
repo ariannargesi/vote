@@ -4,6 +4,7 @@ import {
   Plus,
   Dash
 } from "react-bootstrap-icons";
+import ScoreAction from "../shared/ScoreAction";
 
 export default function Comment() {
   return (
@@ -20,11 +21,7 @@ export default function Comment() {
         <span className="text-gray-400 text-xs">دیروز</span>
       </div>
       <div className="flex gap-x-3">
-        <div className="flex flex-col items-center">
-          <Plus className="text-green-400 text-3xl" />
-          <span className="text-green-400 font-bold">۳۴+</span>
-          <Dash className="text-3xl" />
-        </div>
+        <ScoreAction/>
         <p>
           حرف های نگفته‌مان جایی در حافظه سلول های بدن ذخیره می‌شود. روان، آنچه
           توان بروزش را ندارد به جسم امانت میسپارد. و تنش و اضطراب اینگونه در
