@@ -8,7 +8,7 @@ import ScoreAction from "../shared/ScoreAction";
 
 export default function Comment() {
   return (
-    <div className="bg-secondary p-3 space-y-1">
+    <div className="p-3 space-y-1">
       <div className="flex gap-x-2 items-center">
         <Image
           src={"https://xsgames.co/randomusers/avatar.php?g=pixel"}
@@ -34,7 +34,7 @@ export default function Comment() {
 
 export function Skeleton() {
   return (
-    <div className="bg-secondary p-3 animate-pulse space-y-2">
+    <div className="p-3 animate-pulse space-y-2">
       <div className="flex gap-x-2 items-center">
         <div className="bg-slate-500 w-10 h-10 rounded-full"></div>
         <span className="w-14 h-4 bg-slate-500 rounded-lg" />

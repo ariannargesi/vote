@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb"
 import z from 'zod'
-
+import { HTMLProps as _HTMLProps } from "react"
 export type Vote = {
     createdBy: ObjectId,
     selectedIndex: number
@@ -45,4 +45,15 @@ export type User = {
     avatar?: string,
     location?: string,
     bio?: string,
+}
+
+export type HTMLProps<T> = Omit<_HTMLProps<T>, 'className'>
+
+export type Colors = {
+    primary: string,
+    success: string, 
+    info: string,
+    danger: string, 
+    warning: string,
+    default: string,
 }

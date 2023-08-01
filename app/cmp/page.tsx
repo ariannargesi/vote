@@ -8,18 +8,21 @@ import LocationsList from "./locations-list";
 import Navigation from "./navigation";
 import Comment, { Skeleton as CommentSkeleton } from "./comment/card";
 import WriteComment from "./comment/write-comment";
-
+import ConfirmBox, { useConfirmBoxStore } from "./shared/confirm-box";
+import Paper from "@/components/Paper";
 export default function Playground() {
   const [input, setInput] = useState("");
 
-  const toggleModal = useModalStore((state) => state.toggleModal);
+  const askForConfirm = useConfirmBoxStore((state) => state.askForConfirm);
 
   function confirmCallback() {
     alert("confirmCallback");
   }
 
   function onClickHandler() {
-    toggleModal();
+    askForConfirm("Are you sure?", "Yes", () => {
+      alert("deleting...");
+    });
   }
 
   return (
@@ -33,13 +36,17 @@ export default function Playground() {
         }
       />
       <Content>
-        <div className="absolute bottom-0 w-full bg-secondary">
-        <WriteComment/>
-        </div>
+        <Paper
+          options={['خرید طلا', 'خرید سکه', 'خرید ارز' ,'خرید مسکن']}
+          pollId={"۴۳۴۳"}
+          results={[{value: 25}, {value: 25}, {value: 25}, {value: 25}]}
+          votesCount={150}
+          userVote={undefined}
+          userState={null}
+          pollState={null}
+        />
       </Content>
-      <Footer>
-
-      </Footer>
+  
     </Page>
   );
 }

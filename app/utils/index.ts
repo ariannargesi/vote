@@ -12,3 +12,7 @@ export function numToFa(index: number) {
     else if (index === 5)
         return 'ششم'
 }
+
+export function isEmpty(value: Object): boolean{
+    return Object.entries(value).length === 0
+}

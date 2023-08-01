@@ -13,7 +13,7 @@ type Props = {
     pollId: string,
     results: Result,
     votesCount: number,
-    userVote: number,
+    userVote: number | undefined,
     userState: string | null
     pollState: string | null,
 
@@ -39,7 +39,7 @@ const getLabel = (userVote: number | undefined): string => {
     if (typeof userVote === 'number') {
         str = 'قبلا در این رای‌گیری شرکت کرده اید!'
     } else {
-        str = 'یک گزینه را انتخاب کنید.'
+        str = 'انتخاب کن'
     }
     return str
 }
@@ -126,7 +126,7 @@ export default function Paper(props: Props) {
     }
    
     return (
-        <Vstack>
+        <Vstack className="bg-secondary p-4 rounded-md">
             <div className="flex space-x-4">
                 {isAllowed.isAllowed === false &&
                     isAllowed.type === ISSUES.NO_STATE &&
@@ -140,16 +140,16 @@ export default function Paper(props: Props) {
             </div>
             <ul className="flex flex-col space-y-1">
                 {props.options.map((currentItem, index) => (
-                    <li key={index} className={"bg-gray-100 px-4 py-2 rounded-md relative text-sm"} onClick={(event) => {
+                    <li key={index} className={"bg-black text-white px-4 py-2 rounded-md relative text-sm"} onClick={(event) => {
                         if (isAllowed.isAllowed === false)
                             event.preventDefault()
                         submitVote(index)
                     }
                     }>
-                        <div className={cn('h-full w-full absolute top-0 right-0 bg-black rounded-md duration-500 text-white')} style={{ width: (results ? results[index] ? results[index]!.value : 0 : 0) + '%' }} />
+                        <div className={cn('h-[80%] w-full absolute top-0 right-0 bg-primary rounded-md duration-500 text-white  m-1')} style={{ width: (results ? results[index] ? results[index]!.value : 0 : 0) + '%' }} />
                         {results && <span className="absolute left-2 invert mix-blend-difference"> {results[index] ? results[index]!.value : 0}%</span>}
-                        <span className="invert mix-blend-difference">
-                            {currentItem}
+                        <span className="relative z-10">
+                            {currentItem} <span className="font-bold pr-4">{results[index] ? results[index]!.value : 0}%</span>
                         </span>
                         {userVote === index && <span className="text-sm text-green-400 relative z-10"> (رای شما)</span>}
                     </li>
