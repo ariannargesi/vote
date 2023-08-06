@@ -13,7 +13,7 @@ export const colors = {
 }
 
 const sizes = {
-    'sm': ' px-2',
+    'sm': ' px-2 text-sm',
     'md': 'py-1.5 px-4',
     'lg': 'p-6'
 }
