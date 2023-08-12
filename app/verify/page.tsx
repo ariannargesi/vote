@@ -1,4 +1,3 @@
-import { headers } from "next/headers"
 import React from 'react'
 import { Page, Header, Content } from '../cmp/shared/layouts'
 import VerifyMessage from "./verify-message"

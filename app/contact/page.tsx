@@ -1,19 +1,33 @@
 import { Page, Header, Content, Footer } from '../cmp/shared/layouts'
 import React from 'react'
-import { Label, Textarea } from '../cmp/shared/input'
-import Button from '../../components/Button'
-import Link from 'next/link'
 
-export default function Contact (props) {
+import Link from 'next/link'
+import Form from './cmp/form'
+import { readdirSync } from 'fs'
+import client from '../db/setup'
+import { getServerSession } from 'next-auth'
+import authOption from '@/pages/api/auth/[...nextauth]'
+
+export default async function Contact () {
+    
+    const session = await getServerSession(authOption)
+    console.log('CONTACT SESSION: ', session)
+
+    async function handleSubmit() {
+        'use server'
+        console.log('submitting')
+        const result = await client.query('SELECT * FROM "contact-form"')
+        console.log(result)
+       
+    }
+
     return (
         <Page>
             <Header title='ارتباط/درباره' />
             <Content extendClass='p-2'>
                 <h1 className="text-xl font-bold text-center mt-8">شبکه اجتماعی رای‌گیری و نظرسنجی</h1>
                 <div className='pt-32'>
-                <Label htmlFor='message'>ارسال پیام</Label>
-                <Textarea id='message'/>
-                <Button full extendClass='mt-4' color='info'>ارسال</Button>
+                    <Form onSubmit={handleSubmit}/>
                 </div>
             </Content>
             <Footer>

@@ -1,5 +1,4 @@
 
-'use client'
 import React from 'react'
 import localFont from 'next/font/local'
 import '../styles/globals.css'
@@ -24,29 +23,17 @@ const iranYekan = localFont({
   ]
 })
 
+export default async function RootLayout(props: LayoutProps) {
 
-const client = new ApolloClient({
-
-  uri: 'http://localhost:3000/graphql',
-
-  cache: new InMemoryCache(),
-
-});
-
-
-export default function RootLayout(props: LayoutProps) {
-
-  // const session = await getServerSession(authOption)
+  const session = await getServerSession(authOption)
 
 
   return (
     <html lang="en">
       <body className={iranYekan.className}>
-        {/* <Provider session={session}> */}
-          <ApolloProvider client={client}>
-            {props.children}
-            </ApolloProvider>
-        {/* </Provider> */}
+        <Provider session={session}>        
+          {props.children}
+        </Provider>
       </body>      
     </html>
   )
